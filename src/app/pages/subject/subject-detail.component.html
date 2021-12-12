@@ -1,0 +1,105 @@
+<div style="height: 100%">
+
+  <div class="d-flex flex-column" style="height: 100%">
+
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+      <a [routerLink]="['../']">วิชา</a>
+    </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <nz-breadcrumb-item>{{label[0]}}</nz-breadcrumb-item>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div class="toolbar">
+    <nz-page-header-extra class="headex">
+      <button class="buttontool" nz-button nzType="primary"><a routerLink="/main/subject">รายชื่อวิชา</a></button>
+    </nz-page-header-extra>
+  </div>
+
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <h3>{{label[1]}}</h3>
+      </div>
+    </div>
+    <br />
+    <nz-collapse>
+      <nz-collapse-panel
+        class="collapse-header"
+        nzHeader="{{label[2]}}"
+        [nzActive]="true"
+      >
+
+      <form
+      [formGroup]="saveForm"
+      nzLayout="'vertical'"
+      class="ss-form-search-criteria"
+    >
+      <nz-row nz-row [nzGutter]="24" class="center">
+        <div nz-col nzXs="0" nzSm="0" nzMd="2"></div>
+        <div nz-col nzXs="24" nzSm="24" nzMd="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzRequired
+              >รหัสวิชา</nz-form-label
+            >
+            <nz-form-control nzErrorTip="กรุณากรอกรหัสวิชา">
+              <input
+                nz-input
+                formControlName="subjectId"
+                placeholder=""
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzXs="24" nzSm="24" nzMd="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzRequired
+              >ชื่อวิชา</nz-form-label
+            >
+            <nz-form-control nzErrorTip="กรุณากรอกชื่อวิชา">
+              <input
+                nz-input
+                formControlName="subjectName"
+                placeholder=""
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzXs="24" nzSm="24" nzMd="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8" nzRequired
+              >จำนวนหน่วยกิจ</nz-form-label
+            >
+            <nz-form-control nzErrorTip="กรุณากรอกจำนวนหน่วยกิจ">
+              <input
+                nz-input
+                type="number"
+                formControlName="subjectCredit"
+                placeholder=""
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzSm="4" nzMd="4">
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button nzType="primary" (click)="save()">
+                {{label[3]}}
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </nz-row>
+    </form>
+
+      </nz-collapse-panel>
+    </nz-collapse>
+    <br />
+
+    <br />
+  </div>
+
+</div>
+<ng-template> </ng-template>

@@ -1,0 +1,214 @@
+<div style="height: 100%">
+
+  <div class="d-flex flex-column" style="height: 100%">
+
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>เพิ่มผลการเรียน
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div class="toolbar">
+      <nz-page-header-extra class="headex">
+        <button class="buttontool" nz-button nzType="primary"></button>
+      </nz-page-header-extra>
+    </div>
+
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <h3>เพิ่มผลการเรียน</h3>
+      </div>
+    </div>
+    <br />
+    <nz-collapse>
+      <nz-collapse-panel class="collapse-header" nzHeader="เพิ่มผลการเรียน" [nzActive]="true">
+
+        <form [formGroup]="gradSubmitForm" nzLayout="'vertical'" class="ss-form-search-criteria">
+
+          <div nz-row>
+            <div nz-col nzXs="24" nzSm="24" nzMd="24">
+              <nz-select ngModel="lucy" style="width: 10%" [nzPlaceHolder]="'ชั้นปี'">
+                <nz-option
+                nzLabel="ปวช.1"
+                nzValue="ปวช.1"
+              ></nz-option>
+              <nz-option
+                nzLabel="ปวช.2"
+                nzValue="ปวช.2"
+              ></nz-option>
+              <nz-option
+                nzLabel="ปวช.3"
+                nzValue="ปวช.3"
+              ></nz-option>
+              <nz-option
+                nzLabel="ปวส.1"
+                nzValue="ปวส.1"
+              ></nz-option>
+              <nz-option
+                nzLabel="ปวส.2"
+                nzValue="ปวส.2"
+              ></nz-option>
+              </nz-select>
+              <nz-select ngModel="lucy" style="width: 30%" [nzPlaceHolder]="'สาขา'">
+                <nz-option
+                nzLabel="คอม"
+                nzValue="คอม"
+              ></nz-option>
+              </nz-select>
+              <button type="button" nz-button nzType="primary" [nzLoading]="isLoadingOne">
+                ค้นหา
+              </button>
+            </div>
+          </div>
+<br>
+          <div nz-row>
+            <div nz-col nzXs="24" nzSm="24" nzMd="12">
+              <nz-select ngModel="lucy" style="width: 90%" [nzPlaceHolder]="'นักศึกษา'">
+                <nz-option nzValue="นาย แดง" nzLabel="นาย แดง"></nz-option>
+                <nz-option nzValue="นาย ดำ" nzLabel="นาย ดำ"></nz-option>
+              </nz-select>
+            </div>
+            <div nz-col nzXs="2" nzSm="4" nzMd="3">
+              <nz-select ngModel="lucy" style="width: 90%" [nzPlaceHolder]="'ปีการศึกษา'">
+                <nz-option nzValue="2564" nzLabel="2564"></nz-option>
+                <nz-option nzValue="2565" nzLabel="2565"></nz-option>
+              </nz-select>
+            </div>
+            <div nz-col nzXs="2" nzSm="4" nzMd="3">
+              <nz-select ngModel="lucy" style="width: 90%" [nzPlaceHolder]="'ภาคเรียน'">
+                <nz-option nzValue="1" nzLabel="1"></nz-option>
+                <nz-option nzValue="2" nzLabel="2"></nz-option>
+              </nz-select>
+            </div>
+          </div>
+
+          <div nz-row>
+            <div nz-col nzXs="24" nzSm="24" nzMd="12">
+              <nz-input-group nzCompact>
+                <nz-select class="sub" [ngModel]="'วิชา'" [nzPlaceHolder]="'วิชา'">
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                </nz-select>
+                <nz-input-number [nzMin]="0.5" [nzMax]="4" [nzStep]="0.5" [nzPlaceHolder]="'เกรด'">
+                </nz-input-number>
+              </nz-input-group>
+            </div>
+
+            <div nz-col nzXs="24" nzSm="24" nzMd="12">
+              <nz-input-group nzCompact>
+                <nz-select class="sub" [ngModel]="'วิชา'" [nzPlaceHolder]="'วิชา'">
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                </nz-select>
+                <nz-input-number [nzMin]="0.5" [nzMax]="4" [nzStep]="0.5" [nzPlaceHolder]="'เกรด'">
+                </nz-input-number>
+              </nz-input-group>
+            </div>
+
+            <div nz-col nzXs="24" nzSm="24" nzMd="12">
+              <nz-input-group nzCompact>
+                <nz-select class="sub" [ngModel]="'วิชา'" [nzPlaceHolder]="'วิชา'">
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                </nz-select>
+                <nz-input-number [nzMin]="0.5" [nzMax]="4" [nzStep]="0.5" [nzPlaceHolder]="'เกรด'">
+                </nz-input-number>
+              </nz-input-group>
+            </div>
+
+            <div nz-col nzXs="24" nzSm="24" nzMd="12">
+              <nz-input-group nzCompact>
+                <nz-select class="sub" [ngModel]="'วิชา'" [nzPlaceHolder]="'วิชา'">
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                </nz-select>
+                <nz-input-number [nzMin]="0.5" [nzMax]="4" [nzStep]="0.5" [nzPlaceHolder]="'เกรด'">
+                </nz-input-number>
+              </nz-input-group>
+            </div>
+
+            <div nz-col nzXs="24" nzSm="24" nzMd="12">
+              <nz-input-group nzCompact>
+                <nz-select class="sub" [ngModel]="'วิชา'" [nzPlaceHolder]="'วิชา'">
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                </nz-select>
+                <nz-input-number [nzMin]="0.5" [nzMax]="4" [nzStep]="0.5" [nzPlaceHolder]="'เกรด'">
+                </nz-input-number>
+              </nz-input-group>
+            </div>
+
+            <div nz-col nzXs="24" nzSm="24" nzMd="12">
+              <nz-input-group nzCompact>
+                <nz-select class="sub" [ngModel]="'วิชา'" [nzPlaceHolder]="'วิชา'">
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                </nz-select>
+                <nz-input-number [nzMin]="0.5" [nzMax]="4" [nzStep]="0.5" [nzPlaceHolder]="'เกรด'">
+                </nz-input-number>
+              </nz-input-group>
+            </div>
+
+            <div nz-col nzXs="24" nzSm="24" nzMd="12">
+              <nz-input-group nzCompact>
+                <nz-select class="sub" [ngModel]="'วิชา'" [nzPlaceHolder]="'วิชา'">
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                </nz-select>
+                <nz-input-number [nzMin]="0.5" [nzMax]="4" [nzStep]="0.5" [nzPlaceHolder]="'เกรด'">
+                </nz-input-number>
+              </nz-input-group>
+            </div>
+
+            <div nz-col nzXs="24" nzSm="24" nzMd="12">
+              <nz-input-group nzCompact>
+                <nz-select class="sub" [ngModel]="'วิชา'" [nzPlaceHolder]="'วิชา'">
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                </nz-select>
+                <nz-input-number [nzMin]="0.5" [nzMax]="4" [nzStep]="0.5" [nzPlaceHolder]="'เกรด'">
+                </nz-input-number>
+              </nz-input-group>
+            </div>
+
+            <div nz-col nzXs="24" nzSm="24" nzMd="12">
+              <nz-input-group nzCompact>
+                <nz-select class="sub" [ngModel]="'วิชา'" [nzPlaceHolder]="'วิชา'">
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                </nz-select>
+                <nz-input-number [nzMin]="0.5" [nzMax]="4" [nzStep]="0.5" [nzPlaceHolder]="'เกรด'">
+                </nz-input-number>
+              </nz-input-group>
+            </div>
+
+            <div nz-col nzXs="24" nzSm="24" nzMd="12">
+              <nz-input-group nzCompact>
+                <nz-select class="sub" [ngModel]="'วิชา'" [nzPlaceHolder]="'วิชา'">
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                  <nz-option [nzLabel]="'วิชา'" [nzValue]="'วิชา'"></nz-option>
+                </nz-select>
+                <nz-input-number [nzMin]="0.5" [nzMax]="4" [nzStep]="0.5" [nzPlaceHolder]="'เกรด'">
+                </nz-input-number>
+              </nz-input-group>
+            </div>
+          </div>
+
+        </form>
+
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzSpan]="24" nzAlign="center" style="text-align: center;">
+            <button type="button" nz-button nzType="primary" class="savebutton" [nzLoading]="isLoadingOne" style="margin: 4px;">
+              บันทึก
+            </button>
+            <button type="button" nz-button nzType="primary" class="savebutton" [nzLoading]="isLoadingOne">
+              รีเซ็ท
+            </button>
+          </div>
+        </div>
+      </nz-collapse-panel>
+    </nz-collapse>
+    <br />
+    <br />
+  </div>
+</div>
+<ng-template> </ng-template>

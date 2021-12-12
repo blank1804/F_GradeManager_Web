@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+*{
+  font-family: 'Prompt', sans-serif;}
+  @import "~ng-zorro-antd/ng-zorro-antd.css";
+
+  .buttontool{
+    width: 120px;
+  }
+  .toolbar{
+    text-align: right;
+    padding-right: 120px;
+  }
+  .buttoncenter {
+    margin: 0 auto;
+    display: block;
+  }
+.savebutton{
+  width: 100px;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header{
+  color: white;
+}
+
+
+/* .collapse-header{
+  background-color: #001529;
+  color: white;
+}
+.ant-layout-sider-children{
+  background-color: #001529;
+}  */
+
+/* .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected{
+  background-color: ;
+} */
+/* .ant-table-small .ant-table-thead > tr > th {
+background-color: #dadada;
+} */

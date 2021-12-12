@@ -1,0 +1,98 @@
+
+// Custom Theming for NG-ZORRO
+// For more information: https://ng.ant.design/docs/customize-theme/en
+@import "../node_modules/ng-zorro-antd/ng-zorro-antd.less";
+
+// Override less variables to here
+// View all variables: https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/components/style/themes/default.less
+
+@primary-color: #D83F87;
+@theme: default;
+
+// The prefix to use on all css classes from ant.
+@ant-prefix: ant;
+
+// An override for the html selector for theme prefixes
+@html-selector: html;
+@component-background: #ffffff;
+
+// Buttons
+@btn-font-weight: 400;
+@btn-border-radius-base: 8px;
+@btn-border-radius-sm: @border-radius-base;
+@btn-border-width: @border-width-base;
+@btn-border-style: 2px solid black;
+@btn-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+@btn-primary-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+@btn-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+
+@btn-primary-color: #fff;
+@btn-primary-bg: @primary-color;
+
+@btn-danger-color: rgb(255, 255, 255);
+@btn-danger-bg: #12C998;
+@btn-danger-border: #12C998;
+
+@btn-height-base: @height-base + 2px;
+@btn-height-lg: @height-lg;
+@btn-height-sm: @height-sm;
+
+//layout
+@layout-body-background: #16FFBD;
+@layout-header-background: #2A1B3D;
+
+
+
+// Table
+// --
+@table-bg: @component-background;
+@table-header-bg: #00000021;
+@table-header-color: @heading-color;
+@table-header-sort-bg: @background-color-base;
+@table-body-sort-bg: #fafafa;
+@table-row-hover-bg: #439F76;
+@table-selected-row-color: inherit;
+@table-selected-row-bg: @primary-1;
+@table-body-selected-sort-bg: @table-selected-row-bg;
+@table-selected-row-hover-bg: darken(@table-selected-row-bg, 2%);
+@table-expanded-row-bg: #fbfbfb;
+@table-padding-vertical: 16px;
+@table-padding-horizontal: 16px;
+@table-padding-vertical-md: (@table-padding-vertical * 3 / 4);
+@table-padding-horizontal-md: (@table-padding-horizontal / 2);
+@table-padding-vertical-sm: (@table-padding-vertical / 2);
+@table-padding-horizontal-sm: (@table-padding-horizontal / 2);
+@table-border-color: @border-color-split;
+@table-border-radius-base: @border-radius-base;
+@table-footer-bg: @background-color-light;
+@table-footer-color: @heading-color;
+@table-header-bg-sm: @table-header-bg;
+@table-font-size: @font-size-base;
+@table-font-size-md: @table-font-size;
+@table-font-size-sm: @table-font-size;
+@table-header-cell-split-color: rgba(0, 0, 0, 0.06);
+
+@table-header-sort-active-bg: #d83f869d;
+
+
+// Collapse
+// ---
+@collapse-header-padding: @padding-sm @padding-md;
+@collapse-header-padding-extra: 40px;
+@collapse-header-bg: #2A1B3D;
+@collapse-content-padding: @padding-md;
+@collapse-content-bg: @component-background;
+@collapse-header-arrow-left: 16px;
+
+
+@notification-bg: #F8F8FF;
+
+@border-radius-base: 8px;
+@border-radius-sm: @border-radius-base;
+
+@descriptions-bg: #00000021;
+
+
+
+
+

@@ -1,0 +1,22 @@
+nz-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #001529;
+  color: white;
+  text-align: center;
+}
+
+
+
+html,
+body {
+  margin: 0;
+  font-family: 'Kanit', sans-serif;
+}
+
+.header {
+  text-align: left;
+  background: #686868;
+}

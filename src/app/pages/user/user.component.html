@@ -1,0 +1,101 @@
+
+
+  <nz-header> </nz-header>
+
+
+ <nz-card class="ss-program-content">
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <h3>แสดงผลการเรียนนักศึกษา</h3>
+          </div>
+        </div>
+        <br />
+
+        <nz-drawer [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" nzTitle="ผลการเรียน"
+          (nzOnClose)="close()" [nzWidth]="320">
+          <ng-container *nzDrawerContent>
+            <nz-steps [nzCurrent]="2" nzProgressDot nzDirection="vertical">
+              <nz-step nzTitle="ปวส.1 ภาคเรียนที่ 1" nzDescription="GPS:3.78 | GPA:3.78"></nz-step>
+              <nz-step nzTitle="ปวส.1 ภาคเรียนที่ 2" nzDescription="GPS:3.95 | GPA:3.86"></nz-step>
+            </nz-steps>
+          </ng-container>
+        </nz-drawer>
+
+        <nz-card style="background-color: rgba(177, 177, 177, 0.692);">
+              <div nz-row>
+                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >ชื่อ : นายธีรภัทร ปิ่รกระจันทร์</div>
+                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >รหัสนักเรียน : 6313014004</div>
+                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >เลขบัตรประชาชน : 1-7209-00255-07-4</div>
+              </div>
+              <div nz-row>
+                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >ระดับชั้น : ปวส.2/3</div>
+                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >กลุ่ม : ประเภทวิชาเทคโนโลยีสารสนเทศและการสื่อสาร(เทคโนโลยีสารสนเทศ)</div>
+              </div>
+              <!-- <nz-descriptions nzSize="small" [nzColumn]="3">
+                <nz-descriptions-item nzTitle="ชื่อ" [nzSpan]="1">นายธีรภัทร ปิ่รกระจันทร์ </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="รหัสนักเรียน" [nzSpan]="1"><a>6313014004</a></nz-descriptions-item>
+                <nz-descriptions-item nzTitle="เลขบัตรประชาชน" [nzSpan]="1">1-7209-00255-07-4</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="ระดับชั้น" [nzSpan]="1">ปวส.2/3</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="กลุ่ม" [nzSpan]="2">ประเภทวิชาเทคโนโลยีสารสนเทศและการสื่อสาร(เทคโนโลยีสารสนเทศ)</nz-descriptions-item>
+              </nz-descriptions> -->
+</nz-card>
+
+        <ul nz-menu nzMode="horizontal">
+          <li nz-submenu nzTitle="เลือก ปีการศึกษา" nzIcon="unordered-list">
+            <ul>
+              <li nz-submenu nzTitle="2563">
+                <ul>
+                  <li nz-menu-item>ภาคเรียนที่ 1</li>
+                  <li nz-menu-item>ภาคเรียนที่ 2</li>
+                </ul>
+              </li>
+              <li nz-submenu nzTitle="2564">
+                <ul>
+                  <li nz-menu-item>ภาคเรียนที่ 1</li>
+                  <li nz-menu-item>ภาคเรียนที่ 2</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li nz-menu-item>
+            <a (click)="open()">ผลการเรียน</a>
+          </li>
+          <li nz-menu-item>
+            <a style="color: rgb(8, 76, 202);" nz-button
+             ><i nz-icon nzType="printer"></i>print</a>
+          </li>
+          <li nz-menu-item>
+            <a style="color: brown;" nz-button
+              (click)="logout()"><i nz-icon nzType="logout"></i>Logout</a>
+          </li>
+
+        </ul>
+        <nz-collapse>
+          <nz-collapse-panel class="collapse-header" nzHeader="ผลการเรียน" [nzActive]="true">
+            <nz-table #basicTable [nzFrontPagination]="false"
+            [nzShowPagination]="false" [nzData]="listOfData" nzFooter="GPS = 3.95 | GPA = 3.86" nzTitle="ผลการเรียน ภาคเรียนที่ 2/2563 [21 หน่วยกิจ]" [nzPageSize]="50" [nzScroll]="{ y: '250px' }">
+              <thead>
+                <tr>
+                  <th  style="background-color: #DADADA;">รหัสวิชา</th>
+                  <th  style="background-color: #DADADA;">ชื่อวิชา</th>
+                  <th  style="background-color: #DADADA;">หน่วยกิจ</th>
+                  <th  style="background-color: #DADADA;">ผลการเรียน</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of basicTable.data">
+                  <td>{{ data.id }}</td>
+                  <td>{{ data.name }}</td>
+                  <td>{{ data.credit }}</td>
+                  <td>{{ data.grade }}</td>
+                </tr>
+              </tbody>
+            </nz-table>
+          </nz-collapse-panel>
+        </nz-collapse>
+
+
+
+    </nz-card>
+
+<nz-footer> Academic results management.</nz-footer>
