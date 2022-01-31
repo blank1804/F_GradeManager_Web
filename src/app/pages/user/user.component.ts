@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AppComponent } from 'src/app/app.component';
 
 @Component({
@@ -10,6 +14,7 @@ import { AppComponent } from 'src/app/app.component';
 
 
 export class UserComponent implements OnInit {
+
   visible = false;
   listOfData = [
     {
@@ -96,14 +101,37 @@ export class UserComponent implements OnInit {
 
   constructor(
     private ac: AppComponent,
+    private router: Router,
+    private route: ActivatedRoute,
+    private modal: NzModalService,
+    private notification: NzNotificationService,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit(): void {
   }
 
-  logout(): void {
-    setTimeout(() => {
-      // this.ac.loginin = 'P'
-    }, 500);
+//   logout(): void {
+//     setTimeout(() => {
+//       this.router.navigate(['/login'], { relativeTo: this.route });
+//     }, 500);
+// }
+logout(): void {
+  this.modal.confirm({
+    nzTitle: '<i>ออกจากระบบ</i>',
+    nzContent: '<b>ต้องการที่จะออกจากระบบหรือไม่?</b>',
+    nzOkText: 'Yes',
+    nzOkType: 'primary',
+    nzOkDanger: true,
+    nzOnOk: () => {
+      this.spinner.show();
+      setTimeout(() => {
+      this.router.navigate(['/login'], { relativeTo: this.route });
+      this.spinner.hide();
+      this.notification.success('ล็อกเอาท์สำเร็จ', 'ท่านได้ทำการออกจารระบบเรียบร้อยแล้ว');
+    }, 1000); },
+    nzCancelText: 'No',
+    nzOnCancel: () => { console.log("ok") },
+  });
 }
 }

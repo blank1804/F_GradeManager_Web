@@ -21,6 +21,16 @@ export class AmresultComponent implements OnInit {
     stdId7: null,
 
   });
+  searchSubmitForm = this.formBuilder.group({
+    stdId: null,
+    stdId2: null,
+    stdId3: null,
+    stdId4: null,
+    stdId5: null,
+    stdId6: null,
+    stdId7: null,
+
+  });
   ngOnInit(): void {
 
   }

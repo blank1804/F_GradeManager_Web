@@ -22,45 +22,59 @@
     <nz-collapse>
       <nz-collapse-panel class="collapse-header" nzHeader="เพิ่มผลการเรียน" [nzActive]="true">
 
-        <form [formGroup]="gradSubmitForm" nzLayout="'vertical'" class="ss-form-search-criteria">
 
-          <div nz-row>
-            <div nz-col nzXs="24" nzSm="24" nzMd="24">
-              <nz-select ngModel="lucy" style="width: 10%" [nzPlaceHolder]="'ชั้นปี'">
-                <nz-option
-                nzLabel="ปวช.1"
-                nzValue="ปวช.1"
-              ></nz-option>
-              <nz-option
-                nzLabel="ปวช.2"
-                nzValue="ปวช.2"
-              ></nz-option>
-              <nz-option
-                nzLabel="ปวช.3"
-                nzValue="ปวช.3"
-              ></nz-option>
-              <nz-option
-                nzLabel="ปวส.1"
-                nzValue="ปวส.1"
-              ></nz-option>
-              <nz-option
-                nzLabel="ปวส.2"
-                nzValue="ปวส.2"
-              ></nz-option>
-              </nz-select>
-              <nz-select ngModel="lucy" style="width: 30%" [nzPlaceHolder]="'สาขา'">
-                <nz-option
-                nzLabel="คอม"
-                nzValue="คอม"
-              ></nz-option>
-              </nz-select>
-              <button type="button" nz-button nzType="primary" [nzLoading]="isLoadingOne">
-                ค้นหา
-              </button>
+
+        <form [formGroup]="searchSubmitForm" nzLayout="'vertical'" class="ss-form-search-criteria">
+          <nz-row nz-row [nzGutter]="24" class="center">
+            <div nz-col nzXs="24" nzSm="6" nzMd="6">
+              <nz-form-item>
+                <nz-form-label nzFor="classYear"> ระดับชั้น </nz-form-label>
+                <nz-form-control>
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder=" " id="classYear" name="classYear" formControlName="classYear">
+                    <nz-option nzLabel="ปวช.1" nzValue="ปวช.1"></nz-option>
+                    <nz-option nzLabel="ปวช.2" nzValue="ปวช.2"></nz-option>
+                    <nz-option nzLabel="ปวช.3" nzValue="ปวช.3"></nz-option>
+                    <nz-option nzLabel="ปวส.1" nzValue="ปวส.1"></nz-option>
+                    <nz-option nzLabel="ปวส.2" nzValue="ปวส.2"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
             </div>
-          </div>
-<br>
-          <div nz-row>
+            <div nz-col nzXs="24" nzSm="6" nzMd="6">
+              <nz-form-item>
+                <nz-form-label nzFor="fieldOfStudy"> สาขา </nz-form-label>
+                <nz-form-control>
+                  <nz-select nzAllowClear nzShowSearch id="fieldOfStudy" name="fieldOfStudy" nzPlaceHolder=" "
+                    formControlName="fieldOfStudy">
+                    <nz-option nzLabel="การบัญชี" nzValue="การบัญชี"></nz-option>
+                    <nz-option nzLabel="การตลาด" nzValue="การตลาด"></nz-option>
+                    <nz-option nzLabel="คอมพิวเตอร์กราฟิก" nzValue="คอมพิวเตอร์กราฟิก"></nz-option>
+                    <nz-option nzLabel="การโรงแรมและบริการ" nzValue="การโรงแรมและบริการ"></nz-option>
+                    <nz-option nzLabel="ธุรกิจร้านอาหารและภัตตาคาร" nzValue="ธุรกิจร้านอาหารและภัตตาคาร"></nz-option>
+                    <nz-option nzLabel="การจัดการธุรกิจค้าปลีก" nzValue="การจัดการธุรกิจค้าปลีก"></nz-option>
+                    <nz-option nzLabel="สปาและความงาม" nzValue="สปาและความงาม"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col nzXs="24" nzSm="6" nzMd="6">
+            <nz-form-item>
+              <nz-form-control>
+                <button nz-button nzType="primary">
+                  ค้นหา
+                </button>&NonBreakingSpace;
+                <button nz-button nzType="primary">
+                  รีเซ็ท
+                </button>
+              </nz-form-control>
+            </nz-form-item>
+            </div>
+          </nz-row>
+        </form>
+
+        <form [formGroup]="gradSubmitForm" nzLayout="'vertical'" class="ss-form-search-criteria">
+          <nz-row nz-row [nzGutter]="24" class="center">
             <div nz-col nzXs="24" nzSm="24" nzMd="12">
               <nz-select ngModel="lucy" style="width: 90%" [nzPlaceHolder]="'นักศึกษา'">
                 <nz-option nzValue="นาย แดง" nzLabel="นาย แดง"></nz-option>
@@ -79,7 +93,7 @@
                 <nz-option nzValue="2" nzLabel="2"></nz-option>
               </nz-select>
             </div>
-          </div>
+          </nz-row>
 
           <div nz-row>
             <div nz-col nzXs="24" nzSm="24" nzMd="12">

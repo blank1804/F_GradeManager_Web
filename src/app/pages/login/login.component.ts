@@ -41,65 +41,65 @@ export class LoginComponent implements OnInit {
   }
 
 
+  // submitForm(): void {
+  //   this.spinner.show();
+  //   this.isLoading = true;
+  //   setTimeout(() => {
+  //     //this.router.navigate(['/user'], { relativeTo: this.route });
+  //     this.router.navigate(['/main/student'], { relativeTo: this.route });
+  //     this.spinner.hide();
+  //     this.notification.success('ล็อกอินสำเร็จ', 'ท่านได้ทำการเข้าสู่ระบบสำเร็จแล้ว');
+  //   }, 1000);
+
+  // }
+
   submitForm(): void {
+    let warning: number = 0;
+    if (this.validateForm.invalid) {
+      for (const i in this.validateForm.controls) {
+        this.validateForm.controls[i].markAsDirty();
+        this.validateForm.controls[i].updateValueAndValidity();
+      }
+      this.notification.error('ผิดพลาด', 'กรุณากรอกข้อมูลให้ครบถ้วน');
+      warning++;
+      if (warning > 0) {
+        return;
+      }
+    }
+
+
+  if (this.validateForm.controls.userName.value == 'admin' && this.validateForm.controls.password.value == 'admin')
+  {
     this.spinner.show();
     this.isLoading = true;
     setTimeout(() => {
-      //this.router.navigate(['/user'], { relativeTo: this.route });
       this.router.navigate(['/main/student'], { relativeTo: this.route });
       this.spinner.hide();
-      this.notification.success('ล็อกอินสำเร็จ', 'ท่านได้ทำการเข้าสู่ระบบสำเร็จแล้ว');
+    }, 1000);
+    this.router.navigate(['']);
+    setTimeout(() => {
+      this.message.success('คุณได้เข้าสู่ระบบในถานะ Admin');
+    }, 1000);
+  } else if (this.validateForm.controls.userName.value == '11' && this.validateForm.controls.password.value == '11')
+  {
+    this.spinner.show();
+    this.isLoading = true;
+    setTimeout(() => {
+      this.router.navigate(['/user'], { relativeTo: this.route });
+      this.spinner.hide();
+    }, 1000);
+    this.router.navigate(['']);
+    setTimeout(() => {
+      this.message.success('คุณได้เข้าสู่ระบบในถานะ นักนักศึกษา');
     }, 1000);
 
   }
 
-//   submitForm(): void {
-//     let warning: number = 0;
-//     if (this.validateForm.invalid) {
-//       for (const i in this.validateForm.controls) {
-//         this.validateForm.controls[i].markAsDirty();
-//         this.validateForm.controls[i].updateValueAndValidity();
-//       }
-//       this.notification.error('ผิดพลาด', 'กรุณากรอกข้อมูลให้ครบถ้วน');
-//       warning++;
-//       if (warning > 0) {
-//         return;
-//       }
-//     }
+  else {
+    this.notification.error('ผิดพลาด','ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+    return
+  }
 
-
-//   if (this.validateForm.controls.userName.value == 'admin$' && this.validateForm.controls.password.value == 'admin$')
-//   {
-//     this.spinner.show();
-//     this.isLoading = true;
-//     setTimeout(() => {
-//       this.router.navigate(['/main/student'], { relativeTo: this.route });
-//       this.spinner.hide();
-//     }, 1000);
-//     this.router.navigate(['']);
-//     setTimeout(() => {
-//       this.message.success('คุณได้เข้าสู่ระบบในถานะ Admin');
-//     }, 1000);
-//   } else if (this.validateForm.controls.userName.value == '11' && this.validateForm.controls.password.value == '11')
-//   {
-//     this.loading.show();
-//     this.isLoading = true;
-//     setTimeout(() => {
-//       this.router.navigate(['/user'], { relativeTo: this.route });
-//       this.loading.hide();
-//     }, 1000);
-//     this.router.navigate(['']);
-//     setTimeout(() => {
-//       this.message.success('คุณได้เข้าสู่ระบบในถานะ นักนักศึกษา');
-//     }, 1000);
-
-//   }
-
-//   else {
-//     this.notification.error('ผิดพลาด','ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
-//     return
-//   }
-
-// }
+}
 
 }
