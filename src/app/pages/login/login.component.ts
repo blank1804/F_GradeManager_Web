@@ -7,9 +7,12 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AppComponent } from 'src/app/app.component';
 import { LoadingService } from 'src/app/core/loading/loading.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { canLoginModel, LoginModel, LoginService } from './login.service';
+import { finalize } from 'rxjs/operators';
+import { Page } from 'src/shared/interface/interface';
 export interface login {
-  userName: any;
-  password: any;
+  studentId: any;
+  idCard: any;
 }
 
 @Component({
@@ -18,6 +21,9 @@ export interface login {
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  keyword: string = '';
+  page = new Page();
+  listOfData: any;
 
   constructor(
     private fb: FormBuilder,
@@ -29,17 +35,19 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private modal: NzModalService,
     private spinner: NgxSpinnerService,
+    private loginservice: LoginService,
   ) { }
-  validateForm!: FormGroup;
+  loginForm!: FormGroup;
   isLoading = false;
   ngOnInit(): void {
-    this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
+    this.loginForm = this.fb.group({
+      studentId: [null, [Validators.required]],
+      idCard: [null, [Validators.required]],
       remember: [true]
     });
   }
-
+  loginModel: LoginModel = {} as LoginModel;
+  canLoginModel: canLoginModel = {} as canLoginModel;
 
   // submitForm(): void {
   //   this.spinner.show();
@@ -53,53 +61,72 @@ export class LoginComponent implements OnInit {
 
   // }
 
-  submitForm(): void {
-    let warning: number = 0;
-    if (this.validateForm.invalid) {
-      for (const i in this.validateForm.controls) {
-        this.validateForm.controls[i].markAsDirty();
-        this.validateForm.controls[i].updateValueAndValidity();
-      }
-      this.notification.error('ผิดพลาด', 'กรุณากรอกข้อมูลให้ครบถ้วน');
-      warning++;
-      if (warning > 0) {
-        return;
-      }
-    }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//   submitForm(): void {
+//     let warning: number = 0;
+//     if (this.validateForm.invalid) {
+//       for (const i in this.validateForm.controls) {
+//         this.validateForm.controls[i].markAsDirty();
+//         this.validateForm.controls[i].updateValueAndValidity();
+//       }
+//       this.notification.error('ผิดพลาด', 'กรุณากรอกข้อมูลให้ครบถ้วน');
+//       warning++;
+//       if (warning > 0) {
+//         return;
+//       }
+//     }
 
 
-  if (this.validateForm.controls.userName.value == 'admin' && this.validateForm.controls.password.value == 'admin')
-  {
-    this.spinner.show();
-    this.isLoading = true;
-    setTimeout(() => {
-      this.router.navigate(['/main/student'], { relativeTo: this.route });
-      this.spinner.hide();
-    }, 1000);
-    this.router.navigate(['']);
-    setTimeout(() => {
-      this.message.success('คุณได้เข้าสู่ระบบในถานะ Admin');
-    }, 1000);
-  } else if (this.validateForm.controls.userName.value == '11' && this.validateForm.controls.password.value == '11')
-  {
-    this.spinner.show();
-    this.isLoading = true;
-    setTimeout(() => {
-      this.router.navigate(['/user'], { relativeTo: this.route });
-      this.spinner.hide();
-    }, 1000);
-    this.router.navigate(['']);
-    setTimeout(() => {
-      this.message.success('คุณได้เข้าสู่ระบบในถานะ นักนักศึกษา');
-    }, 1000);
+//   if (this.validateForm.controls.userName.value == 'admin' && this.validateForm.controls.password.value == 'admin')
+//   {
+//     this.spinner.show();
+//     this.isLoading = true;
+//     setTimeout(() => {
+//       this.router.navigate(['/main/student'], { relativeTo: this.route });
+//       this.spinner.hide();
+//     }, 1000);
+//     this.router.navigate(['']);
+//     setTimeout(() => {
+//       this.message.success('คุณได้เข้าสู่ระบบในถานะ Admin');
+//     }, 1000);
 
-  }
+//   } else if (this.validateForm.controls.userName.value == '11' && this.validateForm.controls.password.value == '11')
+//   {
+//     this.spinner.show();
+//     this.isLoading = true;
+//     setTimeout(() => {
+//       this.router.navigate(['/user'], { relativeTo: this.route });
+//       this.spinner.hide();
+//     }, 1000);
+//     this.router.navigate(['']);
+//     setTimeout(() => {
+//       this.message.success('คุณได้เข้าสู่ระบบในถานะ นักนักศึกษา');
+//     }, 1000);
 
-  else {
-    this.notification.error('ผิดพลาด','ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
-    return
-  }
+//   }
+
+//   else {
+//     this.notification.error('ผิดพลาด','ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+//     return
+//   }
+
+// }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+login(): void {
+  Object.assign(this.loginModel, this.loginForm.getRawValue());  this.loginservice.login(this.loginModel).pipe(
+    finalize(() => {
+    }))
+    .subscribe((res: any) => {
+      Object.assign(this.canLoginModel,res);
+      console.log(this.canLoginModel)
+    });
 
 }
+
+
+
+
 
 }
