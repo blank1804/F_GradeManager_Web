@@ -29,7 +29,7 @@
     <div class="toolbar">
       <nz-page-header-extra class="headex">
 
-        <button nz-button nzType="primary" (click)="rout(null)" nzDanger>เพิ่มผลการเรียน
+        <button nz-button nzType="primary" (click)="rout()" nzDanger>เพิ่มผลการเรียน
         </button>
 
       </nz-page-header-extra>
@@ -42,7 +42,7 @@
             <div nz-row [nzGutter]="24">
               <div nz-col [nzSpan]="24">
                 <div #tableContainer class="table_container">
-                  <nz-table #borderedTable nzBordered [nzData]="dataSet" nzSize="small" #headerTable
+                  <nz-table #borderedTable nzBordered [nzData]="listOfData" nzSize="small" #headerTable
                     [nzScroll]="{ y: '290px' }">
                     <thead>
                       <tr>
@@ -54,14 +54,14 @@
                     </thead>
                     <tbody class="ttcenter">
                       <tr *ngFor="let data of borderedTable.data">
-                        <td>{{ data.yearOfgrade }}</td>
-                        <td>{{ data.gps }}</td>
-                        <td>{{ data.gpa }}</td>
+                        <td>{{ data.turm }}/{{ data.year }}</td>
+                        <td>none</td>
+                        <td>none</td>
 
 
-                        <td><button nz-button nzType="primary" nzDanger>
-                            <i nz-icon nzType="edit"></i>
-                          </button > &nbsp; <button nz-button nzType="primary"  nzDanger>
+                        <td> <button nz-button nzType="primary" (click)="edit(data.gId)" nzDanger>
+                            <i nz-icon nzType="edit" nzTheme="outline"></i>
+                          </button> &nbsp; <button nz-button nzType="primary" (click)="cancel(data.gId)" nzDanger>
                             <i nz-icon nzType="delete"></i>
                           </button></td>
                       </tr>
