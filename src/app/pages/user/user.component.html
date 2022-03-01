@@ -2,7 +2,6 @@
 
   <nz-header> </nz-header>
 
-
  <nz-card class="ss-program-content">
         <div nz-row>
           <div nz-col [nzSpan]="24">
@@ -23,13 +22,13 @@
 
         <nz-card style="background-color: rgba(177, 177, 177, 0.692);">
               <div nz-row>
-                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >ชื่อ : นายธีรภัทร ปิ่รกระจันทร์</div>
-                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >รหัสนักเรียน : 6313014004</div>
-                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >เลขบัตรประชาชน : 1-7209-00255-07-4</div>
+                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >ชื่อ : {{InfoModel.preName}} {{InfoModel.firstName}} {{InfoModel.lastName}} </div>
+                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >รหัสนักเรียน : {{InfoModel.studentId}}</div>
+                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >เลขบัตรประชาชน : {{InfoModel.idCard}}</div>
               </div>
               <div nz-row>
-                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >ระดับชั้น : ปวส.2/3</div>
-                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >กลุ่ม : ประเภทวิชาเทคโนโลยีสารสนเทศและการสื่อสาร(เทคโนโลยีสารสนเทศ)</div>
+                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >ระดับชั้น : {{InfoModel.classYear}}</div>
+                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" >ขาสา : {{InfoModel.fieldOfStudy}}</div>
               </div>
               <!-- <nz-descriptions nzSize="small" [nzColumn]="3">
                 <nz-descriptions-item nzTitle="ชื่อ" [nzSpan]="1">นายธีรภัทร ปิ่รกระจันทร์ </nz-descriptions-item>
@@ -58,11 +57,8 @@
             </ul>
           </li>
           <li nz-menu-item>
-            <a (click)="open()">ผลการเรียน</a>
-          </li>
-          <li nz-menu-item>
-            <a style="color: rgb(8, 76, 202);" nz-button
-             ><i nz-icon nzType="printer"></i>print</a>
+            <a style="color: rgb(8, 76, 202);" nz-button (click)="makePDF()"
+             ><i nz-icon nzType="printer" ></i>print</a>
           </li>
           <li nz-menu-item>
             <a style="color: brown;" nz-button
@@ -72,6 +68,7 @@
         </ul>
         <nz-collapse>
           <nz-collapse-panel class="collapse-header" nzHeader="ผลการเรียน" [nzActive]="true">
+            <div id="content" #content>
             <nz-table #basicTable [nzFrontPagination]="false"
             [nzShowPagination]="false" [nzData]="listOfData" nzFooter="GPS = 3.95 | GPA = 3.86" nzTitle="ผลการเรียน ภาคเรียนที่ 2/2563 [21 หน่วยกิจ]" [nzPageSize]="50" [nzScroll]="{ y: '250px' }">
               <thead>
@@ -91,6 +88,7 @@
                 </tr>
               </tbody>
             </nz-table>
+          </div>
           </nz-collapse-panel>
         </nz-collapse>
 

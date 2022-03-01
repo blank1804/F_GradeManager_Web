@@ -128,6 +128,7 @@ export class SubjectDetailComponent extends AbstractPageComponent implements OnI
         if (res.success) {
           this.searchDetail(res.result);
           this.notification.success('สำเร็จ', 'บันทึกสำเร็จแล้ว');
+
         }
       },
         error => {

@@ -1,5 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AppComponent } from 'src/app/app.component';
+import { jsPDF } from "jspdf";
+import { PageStateService } from 'src/app/service/page-state.service';
+import { InfoModel, SearchModel, StudentInfoService } from '../student-info/student-info.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user',
@@ -10,6 +18,9 @@ import { AppComponent } from 'src/app/app.component';
 
 
 export class UserComponent implements OnInit {
+
+  searchModel: SearchModel = {} as SearchModel;
+  InfoModel: InfoModel = {} as InfoModel;
   visible = false;
   listOfData = [
     {
@@ -96,14 +107,66 @@ export class UserComponent implements OnInit {
 
   constructor(
     private ac: AppComponent,
+    private router: Router,
+    private route: ActivatedRoute,
+    private modal: NzModalService,
+    private notification: NzNotificationService,
+    private spinner: NgxSpinnerService,
+    private pageState: PageStateService,
+    private studentInfoService: StudentInfoService,
+
   ) { }
 
   ngOnInit(): void {
+
+    this.pageState.getParams().id;
+    this.search(this.pageState.getParams().id)
   }
 
   logout(): void {
-    setTimeout(() => {
-      // this.ac.loginin = 'P'
-    }, 500);
-}
+    this.modal.confirm({
+      nzTitle: '<i>ออกจากระบบ</i>',
+      nzContent: '<b>ต้องการที่จะออกจากระบบหรือไม่?</b>',
+      nzOkText: 'Yes',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.spinner.show();
+        setTimeout(() => {
+          this.router.navigate(['/login'], { relativeTo: this.route });
+          this.spinner.hide();
+          this.notification.success('ล็อกเอาท์สำเร็จ', 'ท่านได้ทำการออกจารระบบเรียบร้อยแล้ว');
+        }, 1000);
+      },
+      nzCancelText: 'No',
+      nzOnCancel: () => { console.log("ok") },
+    });
+  }
+
+  search(id:number): void {
+    this.searchModel.id = id;
+    this.studentInfoService.search(this.searchModel).pipe(
+      finalize(() => {
+      }))
+      .subscribe((res: any) => {
+        Object.assign(this.InfoModel,res);
+      });
+
+  }
+
+  @ViewChild('content', { static: false }) el!: ElementRef;
+
+  makePDF() {
+
+    let pdf = new jsPDF('p','pt','a4');
+    pdf.html(this.el.nativeElement, {
+      callback: (pdf)=> {
+        pdf.save ("demo.pdf");
+      }
+     });
+
+
+  }
+
+
 }

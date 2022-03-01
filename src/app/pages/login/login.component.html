@@ -1,26 +1,26 @@
 <div class="card">
   <nz-card style="width:600px;" class="box">
     <header class="hhlog">Login</header>
-    <p class="plog">Student's grade manager.</p>
-    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <p class="plog">Academic results management.</p>
+    <form nz-form [formGroup]="loginForm" class="login-form">
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your username!">
           <nz-input-group nzPrefixIcon="user">
-            <input type="text" nz-input formControlName="userName" placeholder="Username" />
+            <input type="text" nz-input formControlName="studentId" placeholder="Username" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your Password!">
           <nz-input-group nzPrefixIcon="lock">
-            <input type="password" nz-input formControlName="password" placeholder="Password" />
+            <input type="password" nz-input formControlName="idCard" placeholder="Password" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <div nz-row class="login-form-margin">
       </div>
-      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'"
-        [nzLoading]="isLoading">Login</button>
+      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="login(true)"
+        [nzLoading]="isLoading">เข้าสู่ระบบ</button>
 
     </form>
   </nz-card>

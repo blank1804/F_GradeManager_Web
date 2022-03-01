@@ -10,6 +10,14 @@ export interface SearchModel extends Page {
   subjectName: string,
 
 }
+export interface getDetailModel extends Page {
+  gId: number,
+}
+export interface sbSearchModel extends Page {
+  subjectId: string,
+  subjectName: string,
+
+}
 export interface SaveModel {
   sId: number,
   subjectId: string,
@@ -54,6 +62,14 @@ export class SubjectService {
     }
 
   }
+  list(model: SearchModel, page: Page) {
+    console.log(model);
+    model.pageNumber = page.pageNumber;
+    model.pageSize = page.pageSize;
+    model.sorts = page.sorts;
+    return this.http.post<any>(`${this.resourceUrl}/search`, model);
+  }
+
 
 }
 

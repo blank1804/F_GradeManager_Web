@@ -12,6 +12,7 @@ import { StudentRoutingModule } from './student-routing.module';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
 import { PageStateService } from 'src/app/service/page-state.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 interface ColumnItem {
   name: string;
@@ -41,12 +42,13 @@ export class StudentComponent extends AbstractPageComponent implements OnInit {
     private studentServicev: StudentService,
     private loadingService: LoadingService,
     private router: Router,
-    private loading:LoadingService
+    private loading:LoadingService,
+    private spinner: NgxSpinnerService,
 
   ) {
     super();
   }
-
+  isLoading = false;
   searchModel: SearchModel = {} as SearchModel;
   getDetail: GetDetail = {} as GetDetail;
   sortName: string | null = null;
@@ -122,6 +124,7 @@ export class StudentComponent extends AbstractPageComponent implements OnInit {
         this.loadingTable = false;
         this.total = res.total;
         this.listOfData = res.records;
+        console.log(this.listOfData)
       },
         error => {
           this.notification.error('Error', error.error.message);
@@ -148,17 +151,18 @@ export class StudentComponent extends AbstractPageComponent implements OnInit {
     nzOnCancel: () => console.log('OK'),
     nzCancelText: 'ยกเลิก',
     nzOnOk: () => {
+
       this.getDetail.id = id;
-      console.log(id+"HHHHHHHHHHHHH")
-      this.selectCancelPetition();}
+      this.selectCancelPetition();
+    }
     });
   }
 
   selectCancelPetition() {
-    this.loadingService.show();
+    this.spinner.show();
     this.sv.cancel(this.getDetail).pipe(
       finalize(() => {
-        this.loadingService.hide();
+        this.spinner.hide();
       }))
       .subscribe(() => {
         this.notification.success('สำเร็จ', 'ทำการลบนักศึกษาเรียบร้อยแล้ว');
