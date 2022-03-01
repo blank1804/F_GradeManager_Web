@@ -96,10 +96,10 @@
 
             <div nz-col nzXs="2" nzSm="4" nzMd="3">
               <nz-select style="width: 90%" [nzPlaceHolder]="'ปีการศึกษา'" formControlName="year">
-                <nz-option nzValue="2564" nzLabel="2560"></nz-option>
-                <nz-option nzValue="2564" nzLabel="2561"></nz-option>
-                <nz-option nzValue="2564" nzLabel="2562"></nz-option>
-                <nz-option nzValue="2564" nzLabel="2563"></nz-option>
+                <nz-option nzValue="2560" nzLabel="2560"></nz-option>
+                <nz-option nzValue="2561" nzLabel="2561"></nz-option>
+                <nz-option nzValue="2562" nzLabel="2562"></nz-option>
+                <nz-option nzValue="2563" nzLabel="2563"></nz-option>
                 <nz-option nzValue="2564" nzLabel="2564"></nz-option>
                 <nz-option nzValue="2565" nzLabel="2565"></nz-option>
               </nz-select>
@@ -189,6 +189,7 @@
               (click)="save()">
               บันทึก
             </button>
+            &nbsp;
             <button type="button" nz-button nzType="primary" class="savebutton" [nzLoading]="isLoadingOne"
               (click)="reset1()">
               รีเซ็ท

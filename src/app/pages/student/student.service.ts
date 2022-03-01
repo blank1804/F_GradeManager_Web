@@ -45,7 +45,7 @@ export class StudentService {
   // }
 
   search(model: SearchModel, page: Page) {
-    console.log(model);
+    console.log("stuednt"+model);
     model.pageNumber = page.pageNumber;
     model.pageSize = page.pageSize;
     model.sorts = page.sorts;

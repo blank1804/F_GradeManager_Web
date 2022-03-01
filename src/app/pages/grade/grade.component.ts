@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -8,7 +9,7 @@ import { PageStateService } from 'src/app/service/page-state.service';
 import { Page } from 'src/shared/interface/interface';
 import { SearchModel, StudentInfoService } from '../student-info/student-info.service';
 import { getDetailModel } from '../subject/subject.service';
-import { GradeService, listModel, searchGradeModel } from './grade.service';
+import { GradeService, listModel, searchGrade2Model, searchGradeModel } from './grade.service';
 
 @Component({
   selector: 'app-grade',
@@ -18,6 +19,7 @@ import { GradeService, listModel, searchGradeModel } from './grade.service';
 export class GradeComponent extends AbstractPageComponent implements OnInit {
   id:any
   searchGradeModel: searchGradeModel = {} as searchGradeModel;
+  searchGrade2Model: searchGrade2Model = {} as searchGrade2Model;
   listModel: listModel = {} as listModel;
   getDetailModel: getDetailModel = {} as getDetailModel;
 
@@ -44,6 +46,9 @@ export class GradeComponent extends AbstractPageComponent implements OnInit {
     },
   ];
 
+  searchForm =  this.formBuilder.group({
+    id: null,
+  });
 
   // id!: number;
   constructor(
@@ -53,6 +58,7 @@ export class GradeComponent extends AbstractPageComponent implements OnInit {
     private gradeService: GradeService,
     private notification: NzNotificationService,
     private modal: NzModalService,
+    private formBuilder: FormBuilder,
 
   ){
     super();
@@ -66,7 +72,8 @@ export class GradeComponent extends AbstractPageComponent implements OnInit {
 ngOnInit(): void {
   this.pageState.getParams().id;
   this.id = this.pageState.getParams().id;
-  console.log(this.id)
+  this.searchForm.value.id=(this.pageState.getParams().id);
+  console.log(this.searchForm.value.id);
   this.searchGrade(true);
   super.ngOnInit();
 
@@ -89,9 +96,8 @@ ngOnInit(): void {
 
    searchGrade(flag: boolean): void {
     if (flag) {
-      this.keyword = this.id;
-      console.log(this.keyword)
       this.page = new Page();
+      this.keyword = this.searchForm.value;
     }
     this.loadingTable = true;
     Object.assign(this.searchGradeModel, this.keyword);
@@ -114,6 +120,8 @@ ngOnInit(): void {
 
   edit(gId: number){
     this.router.navigate(['/main/student/grade/detail',{ gId: gId }]);
+   // this.pageState.navigate(this.router, this.route, '/main/student/grade/detail', { gId: gId }, null);
+
   }
 
 

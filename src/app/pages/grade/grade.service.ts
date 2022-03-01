@@ -15,6 +15,9 @@ export interface SubModel {
 export interface searchGradeModel extends Page {
   id:number
 }
+export interface searchGrade2Model extends Page {
+  id:number
+}
 export interface listModel {
   studentId: string,
   id: number,
@@ -47,6 +50,7 @@ export interface searchG {
 
 
 export interface saveModel {
+  gId:number,
   studentId: string,
   id: number,
   year: string,
@@ -81,16 +85,18 @@ export class GradeService {
  }
 
  save(model: saveModel) {
- {
+  console.log(model.gId);
+  if (model.gId) {
+    return this.http.post<any>(`${this.resourceUrl2}/update`, model);
+  }else {
     return this.http.post<any>(`${this.resourceUrl2}/save`, model);
   }
 
 }
 
 
-
 searchGrade(model: searchGradeModel, page: Page) {
-  console.log(model);
+  console.log("is this go"+model);
   model.pageNumber = page.pageNumber;
   model.pageSize = page.pageSize;
   model.sorts = page.sorts;

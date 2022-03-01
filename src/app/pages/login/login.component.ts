@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
   sortName: string | null = null;
   sortValue: string | null = null;
   total = 1;
-
+  loginId:number | undefined;
 
   // login(flag: boolean): void {
   //   this.spinner.show();
@@ -163,15 +163,21 @@ login(flag: boolean): void {
       this.total = res.total;
       this.listOfDataLogin = res.records;
       Object.assign(this.canLoginModel,res);
+
+      let item1 = this.listOfDataLogin.find((i: { idCard: number; }) => i.idCard === this.loginForm.value.idCard);
       console.log(this.total)
-      console.log(this.listOfDataLogin)
-      console.log(this.canLoginModel)
+      console.log(item1)
+      this.loginId = item1.id
+      console.log(item1.id)
+
+
+      console.log("this is Login id"+this.loginId)
       if(this.total==1){
         this.spinner.show();
         this.isLoading = true;
         setTimeout(() => {
         this.router.navigate(['/user'], { relativeTo: this.route });
-        //this.pageState.navigate(this.router, this.route, '/user', { id: id }, null);
+        this.pageState.navigate(this.router, this.route, '/user', { id: this.loginId }, null);
         this.spinner.hide();
         this.notification.success('ล็อกอินสำเร็จ', 'ท่านได้ทำการเข้าสู่ระบบสำเร็จแล้ว');
         }, 1000);

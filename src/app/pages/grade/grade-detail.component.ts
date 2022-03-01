@@ -19,7 +19,6 @@ import { PageStateService } from 'src/app/service/page-state.service';
 
 
 export class GradeDetailComponent implements OnInit {
-  myID: number | undefined;
   label:any = [];
   InfoModel: InfoModel = {} as InfoModel;
   saveModel: saveModel = {} as saveModel;
@@ -66,7 +65,6 @@ export class GradeDetailComponent implements OnInit {
   });
 
   page = new Page();
-
   constructor(
     private router: Router,
     private pageState: PageStateService,
@@ -94,9 +92,12 @@ export class GradeDetailComponent implements OnInit {
 
     this.route.snapshot.paramMap.get('gId');
 
-    if (this.route.snapshot.paramMap.get('gId') != null) {
+
+    const heroId = this.route.snapshot.paramMap.get('gId');
+
+    if (heroId != null) {
       this.label = "แก้ไขผลการเรียน"
-      this.searchDetail(this.myID!);
+      this.searchDetail(Number(heroId));
     }else{
       this.label = "เพิ่มผลการเรียน"
     }
@@ -181,6 +182,7 @@ export class GradeDetailComponent implements OnInit {
 
   searchDetail(gId: number): void {
     this.searchGModel.gId = gId;
+    this.saveModel.gId = gId;
     this.sv.detail(this.searchGModel).pipe(
       finalize(() => {
         this.rebuildDetail();
@@ -188,6 +190,7 @@ export class GradeDetailComponent implements OnInit {
       .subscribe((res: any) => {
         if (res !== {}) {
           this.gradSubmitForm.patchValue(res);
+          console.log(res)
         }
       },
         error => {
@@ -200,6 +203,7 @@ export class GradeDetailComponent implements OnInit {
     this.gradSubmitForm.markAsPristine();
     this.gradSubmitForm.enable();
   }
+
 
 
 
