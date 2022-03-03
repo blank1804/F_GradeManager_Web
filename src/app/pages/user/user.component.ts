@@ -8,6 +8,16 @@ import { jsPDF } from "jspdf";
 import { PageStateService } from 'src/app/service/page-state.service';
 import { InfoModel, SearchModel, StudentInfoService } from '../student-info/student-info.service';
 import { finalize } from 'rxjs/operators';
+import { createPdf } from "pdfmake/build/pdfmake";
+
+declare var require: any;
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+const htmlToPdfmake = require("html-to-pdfmake");
+
+const pdf = pdfMake;
+pdf.vfs = pdfFonts.pdfMake.vfs;
+
 
 @Component({
   selector: 'app-user',
@@ -65,34 +75,6 @@ export class UserComponent implements OnInit {
       credit: '3',
       grade: '4'
     },
-    {
-      key: '7',
-      id: '30903–2003',
-      name: "การโปรแกรมเว็บส่วนแสดงผล ส่วนการจัดการและประมวลผล",
-      credit: '3',
-      grade: '4'
-    },
-    {
-      key: '1',
-      id: '30003–1401',
-      name: "คณิตศาสตร์และสถิติเพื่องานอาชีพ",
-      credit: '3',
-      grade: '4'
-    },
-    {
-      key: '1',
-      id: '30003-1003',
-      name: "การโปรแกรมเชิงวัตถุ",
-      credit: '3',
-      grade: '4'
-    },
-    {
-      key: '1',
-      id: '3000–1503',
-      name: "การวิเคราะห์และออกแบบอัลกอริทึม",
-      credit: '3',
-      grade: '4'
-    },
 
   ];
 
@@ -143,30 +125,64 @@ export class UserComponent implements OnInit {
     });
   }
 
-  search(id:number): void {
+  search(id: number): void {
     this.searchModel.id = id;
     this.studentInfoService.search(this.searchModel).pipe(
       finalize(() => {
       }))
       .subscribe((res: any) => {
-        Object.assign(this.InfoModel,res);
+        Object.assign(this.InfoModel, res);
       });
 
   }
 
-  @ViewChild('content', { static: false }) el!: ElementRef;
+  // @ViewChild('content', { static: false }) el!: ElementRef;
 
-  makePDF() {
+  // makePDF() {
+  //   let pdf = new jsPDF('p', 'pt', 'a4');
+  //   pdf.html(this.el.nativeElement, {
+  //     callback: (pdf) => {
+  //       pdf.save("demo.pdf");
+  //     }
+  //   });
+  // }
 
-    let pdf = new jsPDF('p','pt','a4');
-    pdf.html(this.el.nativeElement, {
-      callback: (pdf)=> {
-        pdf.save ("demo.pdf");
+  @ViewChild('content')
+  pdfTable!: ElementRef;
+
+  public downloadAsPDF() {
+
+    const fonts = {
+      THSarabunNew: {
+        normal: 'THSarabunNew.ttf',
+        bold: 'THSarabunNew Bold.ttf',
+        italics: 'THSarabunNew Italic.ttf',
+        bolditalics: 'THSarabunNew BoldItalic.ttf'
       }
-     });
+  };
+
+    const pdfTable = this.pdfTable.nativeElement;
+    var html = htmlToPdfmake(pdfTable.innerHTML);
+    const documentDefinition = { content: html };
+
+    //pdfMake.createPdf(documentDefinition).download();
+
+
+    createPdf(documentDefinition, {}, {
+        THSarabunNew: {
+          normal: 'THSarabunNew.ttf',
+          bold: 'THSarabunNew Bold.ttf',
+          italics: 'THSarabunNew Italic.ttf',
+          bolditalics: 'THSarabunNew BoldItalic.ttf'
+        }
+      }, pdfFonts.pdfMake.vfs).download();
 
 
   }
+
+
+
+
 
 
 }

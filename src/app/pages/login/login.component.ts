@@ -145,7 +145,8 @@ login(flag: boolean): void {
       this.spinner.hide();
     }, 1000);
     setTimeout(() => {
-      this.message.success('คุณได้เข้าสู่ระบบในถานะ Admin');
+      //this.message.success('คุณได้เข้าสู่ระบบในถานะ Admin');
+      this.notification.success('Admin ล็อกอินสำเร็จ', 'ท่านได้ทำการเข้าสู่ระบบสำเร็จแล้ว');
     }, 1000)};
 
   if (flag) {
@@ -155,6 +156,8 @@ login(flag: boolean): void {
   this.loadingTable = true;
   Object.assign(this.loginModel, this.keyword);
   this.page.sorts = [{ colId: this.sortName || 'rowNum', sort: this.sortValue || 'asc' }];
+
+  this.spinner.show();
   this.loginservice.login(this.loginModel, this.page).pipe(
     finalize(() => {
     }))
@@ -173,14 +176,14 @@ login(flag: boolean): void {
 
       console.log("this is Login id"+this.loginId)
       if(this.total==1){
-        this.spinner.show();
+
         this.isLoading = true;
-        setTimeout(() => {
+
         this.router.navigate(['/user'], { relativeTo: this.route });
         this.pageState.navigate(this.router, this.route, '/user', { id: this.loginId }, null);
         this.spinner.hide();
         this.notification.success('ล็อกอินสำเร็จ', 'ท่านได้ทำการเข้าสู่ระบบสำเร็จแล้ว');
-        }, 1000);
+
 
   // }
       }else if(this.total==0 && this.loginForm.controls.studentId.value != 'admin' && this.loginForm.controls.idCard.value != 'admin')

@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { AbstractPageComponent } from 'src/app/abstract-page.component';
 import { PageStateService } from 'src/app/service/page-state.service';
@@ -59,6 +60,8 @@ export class GradeComponent extends AbstractPageComponent implements OnInit {
     private notification: NzNotificationService,
     private modal: NzModalService,
     private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService,
+
 
   ){
     super();
@@ -141,8 +144,11 @@ ngOnInit(): void {
    }
 
    selectCancelPetition() {
+    this.spinner.show();
     this.gradeService.cancel(this.getDetailModel).pipe(
       finalize(() => {
+        this.spinner.hide();
+
       }))
       .subscribe(() => {
         this.notification.success('สำเร็จ', 'ทำการลบนักศึกษาเรียบร้อยแล้ว');

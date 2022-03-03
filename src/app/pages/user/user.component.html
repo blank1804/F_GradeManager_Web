@@ -14,8 +14,8 @@
           (nzOnClose)="close()" [nzWidth]="320">
           <ng-container *nzDrawerContent>
             <nz-steps [nzCurrent]="2" nzProgressDot nzDirection="vertical">
-              <nz-step nzTitle="ปวส.1 ภาคเรียนที่ 1" nzDescription="GPS:3.78 | GPA:3.78"></nz-step>
-              <nz-step nzTitle="ปวส.1 ภาคเรียนที่ 2" nzDescription="GPS:3.95 | GPA:3.86"></nz-step>
+              <nz-step nzTitle="ปวส.1 ภาคเรียนที่ 1" nzDescription="GPS:3.75 | GPA:3.75"></nz-step>
+              <nz-step nzTitle="ปวส.1 ภาคเรียนที่ 2" nzDescription="GPS:3.75 | GPA:3.75"></nz-step>
             </nz-steps>
           </ng-container>
         </nz-drawer>
@@ -57,7 +57,7 @@
             </ul>
           </li>
           <li nz-menu-item>
-            <a style="color: rgb(8, 76, 202);" nz-button (click)="makePDF()"
+            <a style="color: rgb(8, 76, 202);" nz-button (click)="downloadAsPDF()"
              ><i nz-icon nzType="printer" ></i>print</a>
           </li>
           <li nz-menu-item>
@@ -70,7 +70,7 @@
           <nz-collapse-panel class="collapse-header" nzHeader="ผลการเรียน" [nzActive]="true">
             <div id="content" #content>
             <nz-table #basicTable [nzFrontPagination]="false"
-            [nzShowPagination]="false" [nzData]="listOfData" nzFooter="GPS = 3.95 | GPA = 3.86" nzTitle="ผลการเรียน ภาคเรียนที่ 2/2563 [21 หน่วยกิจ]" [nzPageSize]="50" [nzScroll]="{ y: '250px' }">
+            [nzShowPagination]="false" [nzData]="listOfData" nzFooter="GPS = 3.75 | GPA = 3.75" nzTitle="ผลการเรียน ภาคเรียนที่ 1/2564 [18 หน่วยกิจ]" [nzPageSize]="50" [nzScroll]="{ y: '250px' }">
               <thead>
                 <tr>
                   <th  style="background-color: #DADADA;">รหัสวิชา</th>

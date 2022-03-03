@@ -11,6 +11,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ActivatedRoute } from '@angular/router';
 import { AbstractPageComponent } from 'src/app/abstract-page.component';
 import { PageStateService } from 'src/app/service/page-state.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-student',
@@ -26,6 +27,8 @@ export class StudentDetailComponent extends AbstractPageComponent implements OnI
     private notification: NzNotificationService,
     private route: ActivatedRoute,
     private pageState: PageStateService,
+    private spinner: NgxSpinnerService,
+
   ) {
     super();
   }
@@ -107,9 +110,11 @@ export class StudentDetailComponent extends AbstractPageComponent implements OnI
   }
 
   saveConfirm() {
+    this.spinner.show();
     Object.assign(this.saveModel, this.saveForm.getRawValue());
     this.sv.save(this.saveModel).pipe(
       finalize(() => {
+        this.spinner.hide();
       }))
       .subscribe((res: any) => {
         if (res.success) {

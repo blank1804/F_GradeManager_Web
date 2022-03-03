@@ -12,6 +12,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
 import { PageStateService } from 'src/app/service/page-state.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 interface DataItem {
   rowNum: number;
 }
@@ -41,6 +42,8 @@ export class SubjectComponent  implements OnInit {
     private pageState: PageStateService,
     private route: ActivatedRoute,
     private router: Router,
+    private spinner: NgxSpinnerService,
+
   ) { }
 
   ngOnInit() {
@@ -118,8 +121,10 @@ cancel(sId: number) {
  }
 
  selectCancelPetition() {
+  this.spinner.show();
    this.sv.cancel(this.getDetail).pipe(
      finalize(() => {
+      this.spinner.hide();
      }))
      .subscribe(() => {
        this.notification.success('สำเร็จ', 'ทำการลบวิชานี้เรียบร้อยแล้ว');

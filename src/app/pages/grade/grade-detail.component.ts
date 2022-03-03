@@ -190,7 +190,7 @@ export class GradeDetailComponent implements OnInit {
       .subscribe((res: any) => {
         if (res !== {}) {
           this.gradSubmitForm.patchValue(res);
-          console.log(res)
+          console.log( this.gradSubmitForm)
         }
       },
         error => {
@@ -204,7 +204,9 @@ export class GradeDetailComponent implements OnInit {
     this.gradSubmitForm.enable();
   }
 
-
+reset(){
+  this.gradSubmitForm.reset
+}
 
 
 }
