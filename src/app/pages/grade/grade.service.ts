@@ -47,6 +47,9 @@ export interface subjectSelect {
 export interface searchG {
   gId: number,
 }
+export interface searchId {
+  id: number,
+}
 
 
 export interface saveModel {
@@ -89,6 +92,45 @@ export interface saveModel {
 
 }
 
+export interface resultModel {
+  gId:number,
+  studentId: string,
+  id: number,
+  year: string,
+  turm: number,
+  subject1: string,
+  point1: number,
+  subject2: string,
+  point2: number,
+  subject3: string,
+  point3: number,
+  subject4: string,
+  point4: number,
+  subject5: string,
+  point5: number,
+  subject6: string,
+  point6: number,
+
+  sId1: number,
+  subjectCredit1: number,
+  subjectId1: string,
+  sId2: number,
+  subjectCredit2: number,
+  subjectId2: string,
+  sId3: number,
+  subjectCredit3: number,
+  subjectId3: string,
+  sId4: number,
+  subjectCredit4: number,
+  subjectId4: string,
+  sId5: number,
+  subjectCredit5: number,
+  subjectId5: string,
+  sId6: number,
+  subjectCredit6: number,
+  subjectId6: string,
+
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -130,4 +172,12 @@ detail(model: searchG) {
   return this.http.post<any>(`${this.resourceUrl2}/getDetail`, model);
 }
 
+
+gradeList(model: searchGradeModel, page: Page) {
+  console.log("is this go"+model);
+  model.pageNumber = page.pageNumber;
+  model.pageSize = page.pageSize;
+  model.sorts = page.sorts;
+  return this.http.post<any>(`${this.resourceUrl2}/searchGrade`, model);
+}
 }

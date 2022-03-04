@@ -15,7 +15,7 @@ import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { FormBuilder } from '@angular/forms';
 import { Page } from 'src/shared/interface/interface';
-import { GradeService, searchGradeModel } from '../grade/grade.service';
+import { GradeService, resultModel, searchGradeModel } from '../grade/grade.service';
 const htmlToPdfmake = require("html-to-pdfmake");
 
 const pdf = pdfMake;
@@ -33,58 +33,15 @@ pdf.vfs = pdfFonts.pdfMake.vfs;
 
 export class UserComponent implements OnInit {
   searchGradeModel: searchGradeModel = {} as searchGradeModel;
+  resultModel: resultModel = {} as resultModel;
   searchModel: SearchModel = {} as SearchModel;
   InfoModel: InfoModel = {} as InfoModel;
   visible = false;
-  listOfData = [
-    {
-      key: '1',
-      id: '30000–1101',
-      name: "ภาษาอังกฤษสําหรับการปฏิบัติงาน",
-      credit: '3',
-      grade: '4'
-    },
-    {
-      key: '2',
-      id: '30000–1502',
-      name: "มนุษยสัมพันธ์ในการทํางาน",
-      credit: '2',
-      grade: '3.5'
-    },
-    {
-      key: '3',
-      id: '30900–0012',
-      name: "การสร้างเว็บเบื้องต้น",
-      credit: '2',
-      grade: '4'
-    },
-    {
-      key: '4',
-      id: '30903–2001',
-      name: "การออกแบบส่วนต่อประสานและประสบการณ์กับผู้ใช้",
-      credit: '3',
-      grade: '4'
-    },
-    {
-      key: '5',
-      id: '30903–2003',
-      name: "การโปรแกรมเว็บส่วนแสดงผล ส่วนการจัดการและประมวณผล",
-      credit: '3',
-      grade: '4'
-    },
-    {
-      key: '6',
-      id: '3000–12001',
-      name: "การออกแบบส่วนต่อประสานและประสบการณ์กับผู้ใช้",
-      credit: '3',
-      grade: '4'
-    },
-
-  ];
-
+  listOfData: any = [];
 
   listOfGrade: any = [];
   sortName: string | null = null;
+  gpa: number | null = null;
   sortValue: string | null = null;
   keyword: string = '';
   page = new Page();
@@ -101,7 +58,7 @@ export class UserComponent implements OnInit {
   }
 
 
-  searchForm =  this.formBuilder.group({
+  searchForm = this.formBuilder.group({
     id: null,
   });
   constructor(
@@ -122,8 +79,8 @@ export class UserComponent implements OnInit {
 
     this.pageState.getParams().id;
     this.search(this.pageState.getParams().id)
-    this.searchForm.value.id=(this.pageState.getParams().id);
-    this.searchGrade(true);
+    this.searchForm.value.id = (this.pageState.getParams().id);
+    this.searchGrade(this.pageState.getParams().id);
   }
 
   logout(): void {
@@ -180,7 +137,7 @@ export class UserComponent implements OnInit {
         italics: 'THSarabunNew Italic.ttf',
         bolditalics: 'THSarabunNew BoldItalic.ttf'
       }
-  };
+    };
 
     const pdfTable = this.pdfTable.nativeElement;
     var html = htmlToPdfmake(pdfTable.innerHTML);
@@ -190,13 +147,13 @@ export class UserComponent implements OnInit {
 
 
     createPdf(documentDefinition, {}, {
-        THSarabunNew: {
-          normal: 'THSarabunNew.ttf',
-          bold: 'THSarabunNew Bold.ttf',
-          italics: 'THSarabunNew Italic.ttf',
-          bolditalics: 'THSarabunNew BoldItalic.ttf'
-        }
-      }, pdfFonts.pdfMake.vfs).download();
+      THSarabunNew: {
+        normal: 'THSarabunNew.ttf',
+        bold: 'THSarabunNew Bold.ttf',
+        italics: 'THSarabunNew Italic.ttf',
+        bolditalics: 'THSarabunNew BoldItalic.ttf'
+      }
+    }, pdfFonts.pdfMake.vfs).download();
 
 
   }
@@ -216,15 +173,46 @@ export class UserComponent implements OnInit {
       .subscribe((res: any) => {
         this.loadingTable = false;
         this.total = res.total;
-        this.listOfGrade = res.records;
-        console.log(this.listOfGrade)
+        this.listOfData = res.records;
+        console.log(this.listOfData)
+        Object.assign(this.resultModel,res);
+        this.math();
       },
         error => {
           this.notification.error('Error', error.error.message);
         });
   }
 
+  math(){
 
+    let data = this.listOfData.find((i: { id: number; }) => i.id === this.searchForm.value.id);
+    let grade1 = data.point1;
+    let grade2 = data.point2;
+    let grade3 = data.point3;
+    let grade4 = data.point4;
+    let grade5 = data.point5;
+    let grade6 = data.point6;
+
+    let credit1 = data.subjectCredit1;
+    let credit2 = data.subjectCredit2;
+    let credit3 = data.subjectCredit3;
+    let credit4 = data.subjectCredit4;
+    let credit5 = data.subjectCredit5;
+    let credit6 = data.subjectCredit6;
+
+    let result1 = grade1 * credit1;
+    let result2 = grade2 * credit2;
+    let result3 = grade3 * credit3;
+    let result4 = grade4 * credit4;
+    let result5 = grade5 * credit5;
+    let result6 = grade6 * credit6;
+
+    let sumcredit = credit1 + credit2 + credit3 + credit4 + credit4 + credit5 + credit6;
+    let sumresult = result1 + result2 + result3 + result4 + result4 + result5 + result6;
+
+    let finalresult = sumresult / sumcredit;
+    this.gpa = finalresult
+  }
 
 
 }
