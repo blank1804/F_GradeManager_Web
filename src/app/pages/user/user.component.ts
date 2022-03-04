@@ -13,6 +13,9 @@ import { createPdf } from "pdfmake/build/pdfmake";
 declare var require: any;
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import { FormBuilder } from '@angular/forms';
+import { Page } from 'src/shared/interface/interface';
+import { GradeService, searchGradeModel } from '../grade/grade.service';
 const htmlToPdfmake = require("html-to-pdfmake");
 
 const pdf = pdfMake;
@@ -27,8 +30,9 @@ pdf.vfs = pdfFonts.pdfMake.vfs;
 
 
 
-export class UserComponent implements OnInit {
 
+export class UserComponent implements OnInit {
+  searchGradeModel: searchGradeModel = {} as searchGradeModel;
   searchModel: SearchModel = {} as SearchModel;
   InfoModel: InfoModel = {} as InfoModel;
   visible = false;
@@ -79,6 +83,15 @@ export class UserComponent implements OnInit {
   ];
 
 
+  listOfGrade: any = [];
+  sortName: string | null = null;
+  sortValue: string | null = null;
+  keyword: string = '';
+  page = new Page();
+  loadingTable = false;
+  total = 1;
+  scollTable: any;
+
   open(): void {
     this.visible = true;
   }
@@ -87,6 +100,10 @@ export class UserComponent implements OnInit {
     this.visible = false;
   }
 
+
+  searchForm =  this.formBuilder.group({
+    id: null,
+  });
   constructor(
     private ac: AppComponent,
     private router: Router,
@@ -96,6 +113,8 @@ export class UserComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private pageState: PageStateService,
     private studentInfoService: StudentInfoService,
+    private formBuilder: FormBuilder,
+    private gradeService: GradeService,
 
   ) { }
 
@@ -103,6 +122,8 @@ export class UserComponent implements OnInit {
 
     this.pageState.getParams().id;
     this.search(this.pageState.getParams().id)
+    this.searchForm.value.id=(this.pageState.getParams().id);
+    this.searchGrade(true);
   }
 
   logout(): void {
@@ -181,6 +202,27 @@ export class UserComponent implements OnInit {
   }
 
 
+  searchGrade(flag: boolean): void {
+    if (flag) {
+      this.page = new Page();
+      this.keyword = this.searchForm.value;
+    }
+    this.loadingTable = true;
+    Object.assign(this.searchGradeModel, this.keyword);
+    this.page.sorts = [{ colId: this.sortName || 'rowNum', sort: this.sortValue || 'asc' }];
+    this.gradeService.searchGrade(this.searchGradeModel, this.page).pipe(
+      finalize(() => {
+      }))
+      .subscribe((res: any) => {
+        this.loadingTable = false;
+        this.total = res.total;
+        this.listOfGrade = res.records;
+        console.log(this.listOfGrade)
+      },
+        error => {
+          this.notification.error('Error', error.error.message);
+        });
+  }
 
 
 

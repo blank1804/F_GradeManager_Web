@@ -68,6 +68,25 @@ export interface saveModel {
   subject6: string,
   point6: number,
 
+  sId1: number,
+  subjectCredit1: number,
+  subjectId1: string,
+  sId2: number,
+  subjectCredit2: number,
+  subjectId2: string,
+  sId3: number,
+  subjectCredit3: number,
+  subjectId3: string,
+  sId4: number,
+  subjectCredit4: number,
+  subjectId4: string,
+  sId5: number,
+  subjectCredit5: number,
+  subjectId5: string,
+  sId6: number,
+  subjectCredit6: number,
+  subjectId6: string,
+
 }
 
 @Injectable({
@@ -85,7 +104,7 @@ export class GradeService {
  }
 
  save(model: saveModel) {
-  console.log(model.gId);
+  console.log(model);
   if (model.gId) {
     return this.http.post<any>(`${this.resourceUrl2}/update`, model);
   }else {
