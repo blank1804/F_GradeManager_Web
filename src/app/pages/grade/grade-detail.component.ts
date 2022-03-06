@@ -18,7 +18,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./grade-detail.component.css']
 })
 
-
 export class GradeDetailComponent implements OnInit {
   label:any = [];
   InfoModel: InfoModel = {} as InfoModel;
@@ -43,7 +42,6 @@ export class GradeDetailComponent implements OnInit {
   subjectId: any;
   subjectName: any;
   subjectCredit: any;
-
   gradSubmitForm = this.formBuilder.group({
     studentId: null,
     id: null,
@@ -66,7 +64,6 @@ export class GradeDetailComponent implements OnInit {
     sId1: null,
     subjectCredit1: null,
     subjectId1: null,
-
   });
 
   page = new Page();
@@ -84,15 +81,12 @@ export class GradeDetailComponent implements OnInit {
     private studentinfoService: StudentInfoService,
     private gradeservice: GradeService,
     private spinner: NgxSpinnerService,
-
     private subjectService: SubjectService,)
      {
 
      }
 
   ngOnInit(): void {
-
-
     this.pageState.getParams().id;
     this.id = this.pageState.getParams().id;
 
@@ -102,18 +96,14 @@ export class GradeDetailComponent implements OnInit {
 
     this.route.snapshot.paramMap.get('gId');
 
-
-    const heroId = this.route.snapshot.paramMap.get('gId');
-
-    if (heroId != null) {
+    const editId = this.route.snapshot.paramMap.get('gId');
+    if (editId != null) {
       this.label = "แก้ไขผลการเรียน"
-      this.searchDetail(Number(heroId));
+      this.searchDetail(Number(editId));
     }else{
       this.label = "เพิ่มผลการเรียน"
     }
-
   }
-
 
   search(id: number): void {
     this.searchModel.id = id;
@@ -149,25 +139,7 @@ export class GradeDetailComponent implements OnInit {
         });
   }
 
-
-  // save() {
-  //   //this.gradSubmitForm.controls.studentId = this.id;
-  //   console.log(this.gradSubmitForm)
-  // }
-
   save(): void {
-    // let warning: number = 0;
-    // if (this.gradSubmitForm.invalid) {
-    //   for (const i in this.saveForm.controls) {
-    //     this.gradSubmitForm.controls[i].markAsDirty();
-    //     this.gradSubmitForm.controls[i].updateValueAndValidity();
-    //   }
-    //   this.notification.error('แจ้งเตือน', 'กรุณากรอกข้อมูลให้ครบถ้วน');
-    //   warning++;
-    // }
-    // if (warning > 0) {
-    //   return;
-    // }
     this.gradSubmitForm.disable();
     this.modal.confirm({
       nzTitle: 'บันทึก',
@@ -237,7 +209,6 @@ export class GradeDetailComponent implements OnInit {
       .subscribe((res: any) => {
         if (res !== {}) {
           this.gradSubmitForm.patchValue(res);
-          console.log( this.gradSubmitForm)
         }
       },
         error => {

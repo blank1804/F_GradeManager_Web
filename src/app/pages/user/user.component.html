@@ -8,15 +8,6 @@
   </div>
   <br />
 
-  <nz-drawer [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" nzTitle="ผลการเรียน" (nzOnClose)="close()"
-    [nzWidth]="320">
-    <ng-container *nzDrawerContent>
-      <nz-steps [nzCurrent]="2" nzProgressDot nzDirection="vertical">
-        <nz-step nzTitle="ปวส.1 ภาคเรียนที่ 1" nzDescription="GPS:3.75 | GPA:3.75"></nz-step>
-        <nz-step nzTitle="ปวส.1 ภาคเรียนที่ 2" nzDescription="GPS:3.75 | GPA:3.75"></nz-step>
-      </nz-steps>
-    </ng-container>
-  </nz-drawer>
 
   <nz-card style="background-color: rgba(177, 177, 177, 0.692);">
     <div nz-row>
@@ -29,13 +20,6 @@
       <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8">ระดับชั้น : {{InfoModel.classYear}}</div>
       <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8">ขาสา : {{InfoModel.fieldOfStudy}}</div>
     </div>
-    <!-- <nz-descriptions nzSize="small" [nzColumn]="3">
-                <nz-descriptions-item nzTitle="ชื่อ" [nzSpan]="1">นายธีรภัทร ปิ่รกระจันทร์ </nz-descriptions-item>
-                <nz-descriptions-item nzTitle="รหัสนักเรียน" [nzSpan]="1"><a>6313014004</a></nz-descriptions-item>
-                <nz-descriptions-item nzTitle="เลขบัตรประชาชน" [nzSpan]="1">1-7209-00255-07-4</nz-descriptions-item>
-                <nz-descriptions-item nzTitle="ระดับชั้น" [nzSpan]="1">ปวส.2/3</nz-descriptions-item>
-                <nz-descriptions-item nzTitle="กลุ่ม" [nzSpan]="2">ประเภทวิชาเทคโนโลยีสารสนเทศและการสื่อสาร(เทคโนโลยีสารสนเทศ)</nz-descriptions-item>
-              </nz-descriptions> -->
   </nz-card>
 
   <ul nz-menu nzMode="horizontal">
@@ -65,7 +49,7 @@
   </ul>
   <nz-collapse>
     <nz-collapse-panel class="collapse-header" nzHeader="ผลการเรียน" [nzActive]="true">
-      <h3>{{gpa}}</h3>
+      <p> GPA = {{gpa}}</p>
       <div id="content" #content>
         <nz-table #basicTable [nzFrontPagination]="false" [nzShowPagination]="false" [nzData]="listOfData"
           nzFooter="GPS = 3.75 | GPA = 3.75" nzTitle="ผลการเรียน ภาคเรียนที่ 1/2564 [18 หน่วยกิต]" [nzPageSize]="50"

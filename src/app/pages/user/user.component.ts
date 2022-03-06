@@ -76,7 +76,7 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    console.log(localStorage.getItem('Users'));
     this.pageState.getParams().id;
     this.search(this.pageState.getParams().id)
     this.searchForm.value.id = (this.pageState.getParams().id);
