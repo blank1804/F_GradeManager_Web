@@ -1,4 +1,4 @@
-import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { AbstractPageComponent } from 'src/app/abstract-page.component';
