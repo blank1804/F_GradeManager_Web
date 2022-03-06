@@ -76,6 +76,7 @@ export class LoginComponent implements OnInit {
         this.isLoading = true;
         setTimeout(() => {
           this.router.navigate(['/main/student'], { relativeTo: this.route });
+          localStorage.setItem('role', ("admin"));
           this.spinner.hide();
           this.notification.success('Admin ล็อกอินสำเร็จ', 'ท่านได้ทำการเข้าสู่ระบบสำเร็จแล้ว');
         }, 1000);
@@ -121,11 +122,12 @@ export class LoginComponent implements OnInit {
           console.log("this is Login id" + this.loginId)
           if (dataId != null) {
             this.router.navigate(['/user'], { relativeTo: this.route });
+            localStorage.setItem('role', ("user"));
+            localStorage.setItem('id', JSON.stringify(this.loginId));
             this.pageState.navigate(this.router, this.route, '/user', { id: this.loginId }, null);
             this.spinner.hide();
             this.notification.success('ล็อกอินสำเร็จ', 'ท่านได้ทำการเข้าสู่ระบบสำเร็จแล้ว');
             this.isLoading = true;
-            localStorage.setItem('Users', JSON.stringify(this.loginId));
           }
         },
           error => {

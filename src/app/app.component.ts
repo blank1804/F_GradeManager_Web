@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.router.navigate(['/login'], { relativeTo: this.route });
+    //this.router.navigate(['/login'], { relativeTo: this.route });
   }
 
 

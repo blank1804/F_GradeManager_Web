@@ -29,6 +29,10 @@ export class DefaultLayoutComponent implements OnInit {
 
 
   ngOnInit(): void {
+    if((localStorage.getItem("role") !== "admin")){
+      this.notification.error('ผิดพลาด', 'คุณไม่มีสิทธิเข้าถึงเนื้อหานี้ได้ กรุณาเข้าสู่ระบบใหม่อีกครั้ง');
+      this.router.navigate(['/login'], { relativeTo: this.route });
+    }
   }
 
 
@@ -43,6 +47,7 @@ export class DefaultLayoutComponent implements OnInit {
         this.spinner.show();
         setTimeout(() => {
         this.router.navigate(['/login'], { relativeTo: this.route });
+        localStorage.clear();
         this.spinner.hide();
         this.notification.success('ล็อกเอาท์สำเร็จ', 'ท่านได้ทำการออกจารระบบเรียบร้อยแล้ว');
       }, 1000); },

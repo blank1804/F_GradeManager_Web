@@ -21,15 +21,11 @@ const htmlToPdfmake = require("html-to-pdfmake");
 const pdf = pdfMake;
 pdf.vfs = pdfFonts.pdfMake.vfs;
 
-
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-
-
-
 
 export class UserComponent implements OnInit {
   searchGradeModel: searchGradeModel = {} as searchGradeModel;
@@ -76,7 +72,10 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('Users'));
+    if((localStorage.getItem("role") !== "user")){
+      this.notification.error('ผิดพลาด', 'คุณไม่มีสิทธิเข้าถึงเนื้อหานี้ได้ กรุณาเข้าสู่ระบบใหม่อีกครั้ง');
+      this.router.navigate(['/login'], { relativeTo: this.route });
+    }
     this.pageState.getParams().id;
     this.search(this.pageState.getParams().id)
     this.searchForm.value.id = (this.pageState.getParams().id);
@@ -93,6 +92,7 @@ export class UserComponent implements OnInit {
       nzOnOk: () => {
         this.spinner.show();
         setTimeout(() => {
+          localStorage.clear();
           this.router.navigate(['/login'], { relativeTo: this.route });
           this.spinner.hide();
           this.notification.success('ล็อกเอาท์สำเร็จ', 'ท่านได้ทำการออกจารระบบเรียบร้อยแล้ว');
