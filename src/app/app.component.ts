@@ -29,20 +29,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     //this.router.navigate(['/login'], { relativeTo: this.route });
-  }
 
-
-  logout(): void {
-    this.modal.confirm({
-      nzTitle: '<i>ออกจากระบบ</i>',
-      nzContent: '<b>ต้องการที่จะออกจากระบบหรือไม่?</b>',
-      nzOkText: 'Yes',
-      nzOkType: 'primary',
-      nzOkDanger: true,
-      nzOnOk: () => { console.log("ok")},
-      nzCancelText: 'No',
-      nzOnCancel: () => { console.log("ok")},
-    });
   }
 
 }

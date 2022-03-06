@@ -25,18 +25,14 @@
   <ul nz-menu nzMode="horizontal">
     <li nz-submenu nzTitle="เลือก ปีการศึกษา" nzIcon="unordered-list">
       <ul>
-        <li nz-submenu nzTitle="2563">
+        <li nz-submenu *ngFor="let sub of listOfData"  [nzTitle]="sub.year">
+        </li>
+        <!-- <li nz-submenu nzTitle="2564">
           <ul>
             <li nz-menu-item>ภาคเรียนที่ 1</li>
             <li nz-menu-item>ภาคเรียนที่ 2</li>
           </ul>
-        </li>
-        <li nz-submenu nzTitle="2564">
-          <ul>
-            <li nz-menu-item>ภาคเรียนที่ 1</li>
-            <li nz-menu-item>ภาคเรียนที่ 2</li>
-          </ul>
-        </li>
+        </li> -->
       </ul>
     </li>
     <li nz-menu-item>
@@ -49,10 +45,11 @@
   </ul>
   <nz-collapse>
     <nz-collapse-panel class="collapse-header" nzHeader="ผลการเรียน" [nzActive]="true">
-      <p> GPA = {{gpa}}</p>
+
       <div id="content" #content>
-        <nz-table #basicTable [nzFrontPagination]="false" [nzShowPagination]="false" [nzData]="listOfData"
-          nzFooter="GPS = 3.75 | GPA = 3.75" nzTitle="ผลการเรียน ภาคเรียนที่ 1/2564 [18 หน่วยกิต]" [nzPageSize]="50"
+        <p>ผลการเรียน ภาคเรียนที่ {{turm}}/{{year}} GPA = {{gpa}}  หน่วยกิต = {{sumcredit}}</p> <a nz-button (click)="math(false);">test</a>
+        <nz-table #basicTable [nzFrontPagination]="false" [nzShowPagination]="false" [nzData]="selectData1"
+        [nzPageSize]="50"
           [nzScroll]="{ y: '250px' }">
           <thead>
             <tr>

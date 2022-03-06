@@ -5,16 +5,14 @@ import { StudentDetailComponent } from './student-detail.component';
 
 const routes: Routes = [
   {
-    path: '', component: StudentComponent,
+    path: 'student', component: StudentComponent,
     data: { title: 'Student', pageId: 'student' },
-    // canActivate: [AuthGuard],
   },
   {
-    path: 'detail', component: StudentDetailComponent,
+    path: 'student/detail', component: StudentDetailComponent,
     data: { title: 'Detail', pageId: 'detail' },
-    // canActivate: [AuthGuard],
   },
-  { path: 'grade', loadChildren: () => import('../grade/grade.module').then(m => m.GradeModule) },
+  { path: 'student/grade', loadChildren: () => import('../grade/grade.module').then(m => m.GradeModule) },
 ];
 
 @NgModule({

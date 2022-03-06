@@ -34,17 +34,22 @@ export class UserComponent implements OnInit {
   InfoModel: InfoModel = {} as InfoModel;
   visible = false;
   listOfData: any = [];
+  selectData1: any = [];
+  selectData2: any = [];
+  Data: any = [];
 
   listOfGrade: any = [];
   sortName: string | null = null;
   gpa: number | null = null;
+  sumcredit: number | null = null;
+  turm: any;
+  year: any;
   sortValue: string | null = null;
   keyword: string = '';
   page = new Page();
   loadingTable = false;
   total = 1;
   scollTable: any;
-
   open(): void {
     this.visible = true;
   }
@@ -72,7 +77,7 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if((localStorage.getItem("role") !== "user")){
+    if ((localStorage.getItem("role") !== "user")) {
       this.notification.error('ผิดพลาด', 'คุณไม่มีสิทธิเข้าถึงเนื้อหานี้ได้ กรุณาเข้าสู่ระบบใหม่อีกครั้ง');
       this.router.navigate(['/login'], { relativeTo: this.route });
     }
@@ -130,31 +135,12 @@ export class UserComponent implements OnInit {
 
   public downloadAsPDF() {
 
-    const fonts = {
-      THSarabunNew: {
-        normal: 'THSarabunNew.ttf',
-        bold: 'THSarabunNew Bold.ttf',
-        italics: 'THSarabunNew Italic.ttf',
-        bolditalics: 'THSarabunNew BoldItalic.ttf'
-      }
-    };
 
     const pdfTable = this.pdfTable.nativeElement;
     var html = htmlToPdfmake(pdfTable.innerHTML);
     const documentDefinition = { content: html };
 
-    //pdfMake.createPdf(documentDefinition).download();
-
-
-    createPdf(documentDefinition, {}, {
-      THSarabunNew: {
-        normal: 'THSarabunNew.ttf',
-        bold: 'THSarabunNew Bold.ttf',
-        italics: 'THSarabunNew Italic.ttf',
-        bolditalics: 'THSarabunNew BoldItalic.ttf'
-      }
-    }, pdfFonts.pdfMake.vfs).download();
-
+    pdfMake.createPdf(documentDefinition).download();
 
   }
 
@@ -175,17 +161,21 @@ export class UserComponent implements OnInit {
         this.total = res.total;
         this.listOfData = res.records;
         console.log(this.listOfData)
-        Object.assign(this.resultModel,res);
-        this.math();
+        this.selectData1 = this.listOfData.slice(0, 1)
+        this.selectData2 = this.listOfData.slice(1, 2)
+        Object.assign(this.resultModel, res);
+        this.math(true);
       },
         error => {
           this.notification.error('Error', error.error.message);
         });
   }
 
-  math(){
 
-    let data = this.listOfData.find((i: { id: number; }) => i.id === this.searchForm.value.id);
+
+
+  math(flage:boolean) {
+    let data = this.selectData1.find((i: { id: number; }) => i.id === this.searchForm.value.id,);
     let grade1 = data.point1;
     let grade2 = data.point2;
     let grade3 = data.point3;
@@ -211,7 +201,11 @@ export class UserComponent implements OnInit {
     let sumresult = result1 + result2 + result3 + result4 + result4 + result5 + result6;
 
     let finalresult = sumresult / sumcredit;
-    this.gpa = finalresult
+
+    this.sumcredit = sumcredit;
+    this.gpa = finalresult;
+    this.year = data.year;
+    this.turm = data.turm;
   }
 
 
