@@ -81,7 +81,7 @@
           <nz-row nz-row [nzGutter]="24" class="center">
 
             <div nz-col nzXs="24" nzSm="24" nzMd="12">
-              <nz-select style="width: 60%;" nzAllowClear nzPlaceHolder="Choose" formControlName="studentId">
+              <nz-select style="width: 65%;" nzAllowClear nzPlaceHolder="เลือกนักศึกษา" formControlName="studentId">
                 <nz-option *ngFor="let option of listOfData" [nzValue]="option.id"
                   [nzLabel]="option.preName +' '+ option.firstName +' '+ option.lastName"></nz-option>
               </nz-select>

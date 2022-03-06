@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   page = new Page();
   listOfDataLogin: any;
   loadingTable = false;
-  id: any;
 
   constructor(
     private fb: FormBuilder,
@@ -38,7 +37,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private modal: NzModalService,
     private spinner: NgxSpinnerService,
-    private loginservice: LoginService,
+    private loginService: LoginService,
     private pageState: PageStateService,
 
   ) { }
@@ -56,75 +55,10 @@ export class LoginComponent implements OnInit {
   sortName: string | null = null;
   sortValue: string | null = null;
   total = 1;
-  loginId:number | undefined;
+  loginId: number | undefined;
 
-  // login(flag: boolean): void {
-  //   this.spinner.show();
-  //   this.isLoading = true;
-  //   setTimeout(() => {
-  //     //this.router.navigate(['/user'], { relativeTo: this.route });
-  //     this.router.navigate(['/main/student'], { relativeTo: this.route });
-  //     this.spinner.hide();
-  //     this.notification.success('ล็อกอินสำเร็จ', 'ท่านได้ทำการเข้าสู่ระบบสำเร็จแล้ว');
-  //   }, 1000);
-
-  // }
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//   login(): void {
-//     let warning: number = 0;
-//     if (this.loginForm.invalid) {
-//       for (const i in this.loginForm.controls) {
-//         this.loginForm.controls[i].markAsDirty();
-//         this.loginForm.controls[i].updateValueAndValidity();
-//       }
-//       this.notification.error('ผิดพลาด', 'กรุณากรอกข้อมูลให้ครบถ้วน');
-//       warning++;
-//       if (warning > 0) {
-//         return;
-//       }
-//     }
-
-
-//   if (this.loginForm.controls.studentId.value == 'admin' && this.loginForm.controls.idCard.value == 'admin')
-//   {
-//     this.spinner.show();
-//     this.isLoading = true;
-//     setTimeout(() => {
-//       this.router.navigate(['/main/student'], { relativeTo: this.route });
-//       this.spinner.hide();
-//     }, 1000);
-//     this.router.navigate(['']);
-//     setTimeout(() => {
-//       this.message.success('คุณได้เข้าสู่ระบบในถานะ Admin');
-//     }, 1000);
-
-//   } else if (this.loginForm.controls.studentId.value == '11' && this.loginForm.controls.idCard.value == '11')
-//   {
-//     this.spinner.show();
-//     this.isLoading = true;
-//     setTimeout(() => {
-//       this.router.navigate(['/user'], { relativeTo: this.route });
-//       this.spinner.hide();
-//     }, 1000);
-//     this.router.navigate(['']);
-//     setTimeout(() => {
-//       this.message.success('คุณได้เข้าสู่ระบบในถานะ นักนักศึกษา');
-//     }, 1000);
-
-//   }
-
-//   else {
-//     this.notification.error('ผิดพลาด','ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
-//     return
-//   }
-
-// }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-login(flag: boolean): void {
-      let warning: number = 0;
+  login(flag: boolean): void {
+    let warning: number = 0;
     if (this.loginForm.invalid) {
       for (const i in this.loginForm.controls) {
         this.loginForm.controls[i].markAsDirty();
@@ -136,65 +70,70 @@ login(flag: boolean): void {
         return;
       }
     }
-  if (this.loginForm.controls.studentId.value == 'admin' && this.loginForm.controls.idCard.value == 'admin')
-  {
-    this.spinner.show();
-    this.isLoading = true;
-    setTimeout(() => {
-      this.router.navigate(['/main/student'], { relativeTo: this.route });
-      this.spinner.hide();
-    }, 1000);
-    setTimeout(() => {
-      this.message.success('คุณได้เข้าสู่ระบบในถานะ Admin');
-    }, 1000)};
-
-  if (flag) {
-    this.keyword = this.loginForm.value;
-    this.page = new Page();
-  }
-  this.loadingTable = true;
-  Object.assign(this.loginModel, this.keyword);
-  this.page.sorts = [{ colId: this.sortName || 'rowNum', sort: this.sortValue || 'asc' }];
-  this.loginservice.login(this.loginModel, this.page).pipe(
-    finalize(() => {
-    }))
-    .subscribe((res: any) => {
-      this.loadingTable = false;
-      this.total = res.total;
-      this.listOfDataLogin = res.records;
-      Object.assign(this.canLoginModel,res);
-
-      let item1 = this.listOfDataLogin.find((i: { idCard: number; }) => i.idCard === this.loginForm.value.idCard);
-      console.log(this.total)
-      console.log(item1)
-      this.loginId = item1.id
-      console.log(item1.id)
-
-
-      console.log("this is Login id"+this.loginId)
-      if(this.total==1){
+    if (this.loginForm.controls.studentId.value == 'admin') {
+      if (this.loginForm.controls.idCard.value == 'admin') {
         this.spinner.show();
         this.isLoading = true;
         setTimeout(() => {
-        this.router.navigate(['/user'], { relativeTo: this.route });
-        this.pageState.navigate(this.router, this.route, '/user', { id: this.loginId }, null);
-        this.spinner.hide();
-        this.notification.success('ล็อกอินสำเร็จ', 'ท่านได้ทำการเข้าสู่ระบบสำเร็จแล้ว');
+          this.router.navigate(['/main/student'], { relativeTo: this.route });
+          localStorage.setItem('role', ("admin"));
+          this.spinner.hide();
+          this.notification.success('Admin ล็อกอินสำเร็จ', 'ท่านได้ทำการเข้าสู่ระบบสำเร็จแล้ว');
         }, 1000);
-
-  // }
-      }else if(this.total==0 && this.loginForm.controls.studentId.value != 'admin' && this.loginForm.controls.idCard.value != 'admin')
-      {
-        this.notification.error('ล็อกไม่สำเร็จ', 'ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง!!');
+      } else {
+        this.notification.error('ล็อกไม่สำเร็จ', 'รหัสผ่านไม่ถูกต้อง!!');
       }
-    },
-      error => {
-        this.notification.error('Error', error.error.message);
-      });
-}
+    }
+    // if (this.loginForm.controls.studentId.value == 'admin' && this.loginForm.controls.idCard.value == 'admin') {
+    //   this.spinner.show();
+    //   this.isLoading = true;
+    //   setTimeout(() => {
+    //     this.router.navigate(['/main/student'], { relativeTo: this.route });
+    //     this.spinner.hide();
+    //     this.notification.success('Admin ล็อกอินสำเร็จ', 'ท่านได้ทำการเข้าสู่ระบบสำเร็จแล้ว');
+    //   }, 1000);
+    // }
+    else if (this.loginForm.controls.studentId.value != 'admin' && this.loginForm.controls.idCard.value != 'admin') {
+      this.keyword = this.loginForm.value;
+      this.page = new Page();
+      this.loadingTable = true;
+      Object.assign(this.loginModel, this.keyword);
+      this.page.sorts = [{ colId: this.sortName || 'rowNum', sort: this.sortValue || 'asc' }];
+      this.spinner.show();
+      this.loginService.login(this.loginModel, this.page).pipe(
+        finalize(() => {
+        }))
+        .subscribe((res: any) => {
+          this.loadingTable = false;
+          this.total = res.total;
+          if (this.total == 0) {
+            this.notification.error('ล็อกไม่สำเร็จ', 'ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง!!');
+            this.router.navigate(['/login'], { relativeTo: this.route });
+            this.spinner.hide();
+          }
+          this.listOfDataLogin = res.records;
+          Object.assign(this.canLoginModel, res);
 
-
-
-
+          let dataId = this.listOfDataLogin.find((i: { idCard: number; }) => i.idCard === this.loginForm.value.idCard);
+          console.log(this.total)
+          if (dataId != null) {
+            this.loginId = dataId.id
+          }
+          console.log("this is Login id" + this.loginId)
+          if (dataId != null) {
+            this.router.navigate(['/user'], { relativeTo: this.route });
+            localStorage.setItem('role', ("user"));
+            localStorage.setItem('id', JSON.stringify(this.loginId));
+            this.pageState.navigate(this.router, this.route, '/user', { id: this.loginId }, null);
+            this.spinner.hide();
+            this.notification.success('ล็อกอินสำเร็จ', 'ท่านได้ทำการเข้าสู่ระบบสำเร็จแล้ว');
+            this.isLoading = true;
+          }
+        },
+          error => {
+            this.notification.error('Error', error.error.message);
+          });
+    }
+  }
 
 }

@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/api/'
+  //apiUrl: 'http://localhost:8080/api/'
   //apiUrl: 'http://studentsgw.herokuapp.com/'
+  apiUrl: 'https://f-grademanager-backend.herokuapp.com/'
 };
 
 /*
