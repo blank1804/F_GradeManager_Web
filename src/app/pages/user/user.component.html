@@ -47,7 +47,7 @@
     <nz-collapse-panel class="collapse-header" nzHeader="ผลการเรียน" [nzActive]="true">
 
       <div id="content" #content>
-        <p>ผลการเรียน ภาคเรียนที่ {{turm}}/{{year}} GPA = {{gpa}}  หน่วยกิต = {{sumcredit}}</p> <a nz-button (click)="math(false);">test</a>
+        <p>ผลการเรียน ภาคเรียนที่ {{turm}}/{{year}} GPA = {{gpa}}  หน่วยกิต = {{sumcredit}}</p>
         <nz-table #basicTable [nzFrontPagination]="false" [nzShowPagination]="false" [nzData]="selectData1"
         [nzPageSize]="50"
           [nzScroll]="{ y: '250px' }">

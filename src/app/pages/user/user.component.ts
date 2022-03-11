@@ -77,7 +77,7 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if ((localStorage.getItem("role") !== "user")) {
+    if ((sessionStorage.getItem("role") !== "user")) {
       this.notification.error('ผิดพลาด', 'คุณไม่มีสิทธิเข้าถึงเนื้อหานี้ได้ กรุณาเข้าสู่ระบบใหม่อีกครั้ง');
       this.router.navigate(['/login'], { relativeTo: this.route });
     }
@@ -97,7 +97,7 @@ export class UserComponent implements OnInit {
       nzOnOk: () => {
         this.spinner.show();
         setTimeout(() => {
-          localStorage.clear();
+          sessionStorage.clear();
           this.router.navigate(['/login'], { relativeTo: this.route });
           this.spinner.hide();
           this.notification.success('ล็อกเอาท์สำเร็จ', 'ท่านได้ทำการออกจารระบบเรียบร้อยแล้ว');
